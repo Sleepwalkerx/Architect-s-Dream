@@ -1,0 +1,31 @@
+modLoader="javafml"
+loaderVersion="[34,)"
+license="MIT"
+issueTrackerURL=""
+logoFile=""
+credits="All Our Gods Have Abandoned Us"
+authors="Sleepwalker" 
+
+[[mods]]
+    modId="architectsdream"
+    version="${file.jarVersion}"
+    displayName="Architect's Dream"
+    updateJSONURL=""
+    displayURL=""
+    description='''
+    ===| Игры убивают детей |===
+    '''
+
+[[dependencies.architectsdream]]
+    modId="forge"
+    mandatory=true
+    versionRange="[34,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.architectsdream]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5]"
+    ordering="NONE"
+    side="BOTH"

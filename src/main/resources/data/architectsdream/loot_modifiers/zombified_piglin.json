@@ -1,0 +1,12 @@
+{
+    "conditions": [
+        {
+            "condition": "forge:loot_table_id",
+            "loot_table_id": "minecraft:entities/zombified_piglin"
+        }
+    ],
+
+    "id": "architectsdream:wither_ritual",
+    "chance": 0.001,
+    "clear": false
+}

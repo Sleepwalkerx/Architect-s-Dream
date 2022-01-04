@@ -1,0 +1,106 @@
+{
+
+    "_" : "======================== Base ==========================",
+
+    "architectsdream.blueprint.rarity.simple": "Simple",
+    "architectsdream.blueprint.rarity.rare": "Rare",
+    "architectsdream.blueprint.rarity.legendary" : "Legendary",
+    "architectsdream.blueprint.rarity.world_wonder" : "World Wonder",
+    "architectsdream.blueprint.rarity.none" : "Undetermined",
+
+    "architectsdream.blueprint.condition.whole" : "Blueprint %s",
+    "architectsdream.blueprint.condition.defective" : "Defective Blueprint %s",
+    "architectsdream.blueprint.condition.none" : "Empty Blueprint",
+
+    "_" : "========================== Analysis ===========================",
+
+    "architectsdream.structure.analysis.correctly_build" : "Structure successfully formed",
+    "architectsdream.structure.analysis.incorrectly_build" : "Can't form structure",
+    "architectsdream.structure.analysis.empty_structure" : "The structure is empty",
+    "architectsdream.structure.analysis.error_engine_formed" : "Engine formation error",
+
+    "_" : "============================= Blueprint Creator ===============================",
+
+    "architectsdream.blueprint_creator.mode.constant" : "Constant",
+    "architectsdream.blueprint_creator.mode.anyone" : "Anyone",
+    "architectsdream.blueprint_creator.mode.permutation_const" : "Permutation",
+
+    "_": "________ General _________",
+
+    "screen.architectsdream.blueprint_creator.general.button_file_create": "Create File",
+
+    "_": "________ Item Maker _________",
+
+    "screen.architectsdream.blueprint_creator.engine_item_maker.name": "Engine ItemMaker",
+
+    "_": "________ Engine Base _________",
+
+    "screen.architectsdream.blueprint_creator.engine_base.name": "Base Engine",
+
+    "_": "________ Block Type _________",
+
+    "screen.architectsdream.blueprint_creator.block_type.name": "Block type",
+    "screen.architectsdream.blueprint_creator.block_type.consider_air.name": "Consider Air Block",
+
+    "_": "________ Main Setting _________",
+
+    "screen.architectsdream.blueprint_creator.main_setting.name": "Main setting",
+    "screen.architectsdream.blueprint_creator.main_setting.title_reg_id": "Registration ID",
+    "screen.architectsdream.blueprint_creator.main_setting.title_name": "Name",
+    "screen.architectsdream.blueprint_creator.main_setting.title_rarity": "Rarity",
+    "screen.architectsdream.blueprint_creator.main_setting.title_author": "Author",
+    "screen.architectsdream.blueprint_creator.main_setting.title_mode": "Mode Mesh Selection",
+    "screen.architectsdream.blueprint_creator.main_setting.title_file_format": "File Format",
+    "screen.architectsdream.blueprint_creator.main_setting.tab.engine": "Engine",
+    "screen.architectsdream.blueprint_creator.main_setting.tab.palette_type": "Palette Type",
+    "screen.architectsdream.blueprint_creator.main_setting.validator_mode.const": "Constant",
+
+    "_" : "==================== Blueprint Viewer =====================",
+
+    "screen.architectsdream.blueprint_viewer.scroll_ingredients.name" : "Ingredients",
+    "screen.architectsdream.blueprint_viewer.scroll_object_information.name" : "Object Information",
+    "screen.architectsdream.blueprint_viewer.scroll_result_creation.name" : "Result of Creation",
+    "screen.architectsdream.blueprint_viewer.window_structure_viewer.name" : "Structure Viewer",
+
+    "screen.architectsdream.blueprint_viewer.blueprint_author.name" : "Author",
+    "screen.architectsdream.blueprint_viewer.blueprint_rarity.name" : "Rarity",
+    "screen.architectsdream.blueprint_viewer.blueprint_engine_type.name" : "Type",
+
+    "screen.architectsdream.blueprint_viewer.engine_type_do.engine_item_maker.name" : "Create Items",
+
+    "screen.architectsdream.blueprint_viewer.engine_type_do.default.name" : "None",
+
+    "_" : "========================= JEI ==============================",
+
+    "gui.jei.blueprint_info_1": "This Blueprint cannot be created, it can only be found.",
+    "gui.jei.blueprint_info_2": "You can find it anywhere and usually it depends on the nature of the object it creates.",
+    "gui.jei.blueprint_info_3": "For example: Trade with residents, Loot Chests in dimensions, etc.",
+
+    "gui.jei.category.architectsdream.item_maker": "Blueprint Create Item",
+
+    "_": "========================= Development ==========================",
+
+    "architectsdream.structure.development.error_build": "The structure file \"%s\" cannot be created. View Game Logs for more information.",
+    "architectsdream.structure.development.success_build": "File \"%s\" created successfully!",
+
+    "_": "======================= ItemGroup =============================",
+
+    "itemGroup.blueprints": "Blueprints",
+    "itemGroup.architectsdream": "Architect's Dream",
+
+    "_": "======================== Items ================================",
+
+    "item.architectsdream.dark_dust": "Dark Dust",
+    "item.architectsdream.blueprint_creator": "Blueprint Creator",
+
+    "_": "====================== Blueprints ==============================",
+
+    "blueprint.architectsdream.big_bookshelf.name": "Big ${block.minecraft.bookshelf}",
+    "blueprint.architectsdream.totem_of_undying.name": "${item.minecraft.totem_of_undying}",
+    "blueprint.architectsdream.dark_dust.name": "${item.architectsdream.dark_dust}",
+    "blueprint.architectsdream.netherite_ingot.name": "${item.minecraft.netherite_ingot}",
+    "blueprint.architectsdream.ancient_debris.name": "${block.minecraft.ancient_debris}",
+    "blueprint.architectsdream.skeleton_skull.name": "${block.minecraft.skeleton_skull}",
+    "blueprint.architectsdream.wither_ritual.name": "Wither Ritual",
+    "blueprint.architectsdream.player_ritual.name": "Player Ritual"
+}

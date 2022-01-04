@@ -1,0 +1,38 @@
+{
+   "type": "minecraft:crafting_shaped",
+   "pattern": [
+      "IYI",
+      "SBS",
+      "KPR"
+   ],
+   "key": {
+      "I": {
+         "item": "minecraft:iron_block"
+      },
+      "Y": {
+         "item": "minecraft:yellow_wool"
+      },
+      "S": {
+         "item": "minecraft:sand"
+      },
+      "B": {
+         "item": "minecraft:bookshelf"
+      },
+      "K": {
+         "item": "minecraft:blue_wool"
+      },
+      "R": {
+         "item": "minecraft:red_wool"
+      },
+      "P": {
+         "item": "minecraft:paper"
+      }
+   },
+   "result": {
+      "item": "architectsdream:blueprint",
+      "nbt": {
+         "id": "architectsdream:big_bookshelf",
+         "condition": "WHOLE"
+      }
+   }
+}

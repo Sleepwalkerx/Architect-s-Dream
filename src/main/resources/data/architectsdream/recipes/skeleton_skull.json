@@ -1,0 +1,29 @@
+{
+   "type": "minecraft:crafting_shaped",
+   "pattern": [
+      "BBB",
+      "BDB",
+      "QFQ"
+   ],
+   "key": {
+      "B": {
+         "item": "minecraft:bone"
+      },
+      "D": {
+         "item": "minecraft:diamond"
+      },
+      "Q": {
+         "item": "minecraft:quartz"
+      },
+      "F": {
+         "item": "minecraft:fletching_table"
+      }
+   },
+   "result": {
+      "item": "architectsdream:blueprint",
+      "nbt": {
+         "id": "architectsdream:skeleton_skull",
+         "condition": "WHOLE"
+      }
+   }
+}

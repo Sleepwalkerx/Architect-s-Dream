@@ -1,0 +1,107 @@
+{
+
+    "_" : "======================== Base ==========================",
+
+    "architectsdream.blueprint.rarity.simple": "Обычный",
+    "architectsdream.blueprint.rarity.rare": "Редкий",
+    "architectsdream.blueprint.rarity.legendary" : "Легендарный",
+    "architectsdream.blueprint.rarity.world_wonder" : "Чудо света",
+    "architectsdream.blueprint.rarity.none" : "Неопределен",
+
+    "architectsdream.blueprint.condition.whole" : "Чертёж %s",
+    "architectsdream.blueprint.condition.defective" : "Поврежденный Чертёж %s",
+    "architectsdream.blueprint.condition.none" : "Пустой Чертёж",
+
+    "_" : "========================== Analysis ===========================",
+
+    "architectsdream.structure.analysis.correctly_build" : "Структура сформирована удачно",
+    "architectsdream.structure.analysis.incorrectly_build" : "Не удается сформировать стуктуру",
+    "architectsdream.structure.analysis.empty_structure" : "Структура пустая",
+    "architectsdream.structure.analysis.error_engine_formed" : "Ошибка формирования в движке",
+
+    "_" : "============================= Blueprint Creator ===============================",
+
+    "architectsdream.blueprint_creator.mode.constant" : "Константа",
+    "architectsdream.blueprint_creator.mode.anyone" : "Любой",
+    "architectsdream.blueprint_creator.mode.permutation_const" : "Переменный постоянный",
+
+    "_": "________ General _________",
+
+    "screen.architectsdream.blueprint_creator.general.button_file_create": "Создать файл",
+
+    "_": "________ Item Maker _________",
+
+    "screen.architectsdream.blueprint_creator.engine_item_maker.name": "Движок Создания предметов",
+
+    "_": "________ Engine Base _________",
+
+    "screen.architectsdream.blueprint_creator.engine_base.name": "Базовый Движок",
+
+    "_": "________ Block Type _________",
+
+    "screen.architectsdream.blueprint_creator.block_type.name": "Блочный Тип",
+    "screen.architectsdream.blueprint_creator.block_type.consider_air.name": "Учитывать блок воздуха",
+
+    "_": "________ Main Setting _________",
+
+    "screen.architectsdream.blueprint_creator.main_setting.name": "Главные настройки",
+    "screen.architectsdream.blueprint_creator.main_setting.title_reg_id": "Регистр. id",
+    "screen.architectsdream.blueprint_creator.main_setting.title_name": "Имя",
+    "screen.architectsdream.blueprint_creator.main_setting.title_rarity": "Редкость",
+    "screen.architectsdream.blueprint_creator.main_setting.title_author": "Автор",
+    "screen.architectsdream.blueprint_creator.main_setting.title_mode": "Режим сетки",
+    "screen.architectsdream.blueprint_creator.main_setting.title_file_format": "Формат файла",
+    "screen.architectsdream.blueprint_creator.main_setting.tab.engine": "Движок",
+    "screen.architectsdream.blueprint_creator.main_setting.tab.challenge": "Челленд",
+    "screen.architectsdream.blueprint_creator.main_setting.tab.palette_type": "Тип палитры",
+    "screen.architectsdream.blueprint_creator.main_setting.validator_mode.const": "Постоянный",
+
+    "_" : "==================== Blueprint Viewer =====================",
+
+    "screen.architectsdream.blueprint_viewer.scroll_ingredients.name" : "Ингредиенты",
+    "screen.architectsdream.blueprint_viewer.scroll_object_information.name" : "Информация о предметах",
+    "screen.architectsdream.blueprint_viewer.scroll_result_creation.name" : "Результат создания",
+    "screen.architectsdream.blueprint_viewer.window_structure_viewer.name" : "Визуализатор Структуры",
+
+    "screen.architectsdream.blueprint_viewer.blueprint_author.name" : "Автор",
+    "screen.architectsdream.blueprint_viewer.blueprint_rarity.name" : "Редкость",
+    "screen.architectsdream.blueprint_viewer.blueprint_engine_type.name" : "Тип",
+
+    "screen.architectsdream.blueprint_viewer.engine_type_do.engine_item_maker.name" : "Создает предметы",
+
+    "screen.architectsdream.blueprint_viewer.engine_type_do.default.name" : "Никакой",
+
+    "_" : "========================= JEI ==============================",
+
+    "gui.jei.blueprint_info_1": "Чертёж не может быть создан, он может быть только найден.",
+    "gui.jei.blueprint_info_2": "Вы можете найти его где угодно, и обычно это зависит от природы создаваемого объекта.",
+    "gui.jei.blueprint_info_3": "Например: Торговля с жителями, Добыча сундуков в измерениях и т.д.",
+
+    "gui.jei.category.architectsdream.item_maker": "Чертёж создания предметов",
+
+    "_": "========================= Development ==========================",
+
+    "architectsdream.structure.development.error_build": "Файл структуры \"%s\" не удается создать. Посмотрите логи игры для большей информации.",
+    "architectsdream.structure.development.success_build": "Файл \"%s\" создан успешно!",
+
+    "_": "======================= ItemGroup =============================",
+
+    "itemGroup.blueprints": "Чертежи",
+    "itemGroup.architectsdream": "Architect's Dream",
+
+    "_": "======================== Items ================================",
+
+    "item.architectsdream.dark_dust": "Тёмная пыль",
+    "item.architectsdream.blueprint_creator": "Создатель чертежей",
+
+    "_": "====================== Blueprints ==============================",
+
+    "blueprint.architectsdream.big_bookshelf.name": "Большой Книжной полки",
+    "blueprint.architectsdream.totem_of_undying.name": "Тотема бессмертия",
+    "blueprint.architectsdream.dark_dust.name": "Тёмной пыли",
+    "blueprint.architectsdream.netherite_ingot.name": "Незеритового слитка",
+    "blueprint.architectsdream.ancient_debris.name": "Древних обломков",
+    "blueprint.architectsdream.skeleton_skull.name": "Черепа",
+    "blueprint.architectsdream.wither_ritual.name": "Ритуала Визера",
+    "blueprint.architectsdream.player_ritual.name": "Ритуала Игрока"
+}

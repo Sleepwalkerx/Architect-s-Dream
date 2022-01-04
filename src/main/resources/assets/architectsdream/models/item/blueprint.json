@@ -1,0 +1,14 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "architectsdream:item/structure/rarity_simple"
+    },
+    "overrides": [
+        { "predicate": { "rarity": 0, "condition": 0 }, "model": "architectsdream:item/structure/rarity_simple" },
+        { "predicate": { "rarity": 1, "condition": 0 }, "model": "architectsdream:item/structure/rarity_rare" },
+        { "predicate": { "rarity": 2, "condition": 0 }, "model": "architectsdream:item/structure/rarity_legendary" },
+        { "predicate": { "rarity": 3, "condition": 0 }, "model": "architectsdream:item/structure/rarity_sight" },
+        { "predicate": { "rarity": 4, "condition": 0 }, "model": "architectsdream:item/structure/rarity_wonder" },
+        { "predicate": { "condition": 1 }, "model": "architectsdream:item/structure/condition_defective" }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+   "type": "minecraft:crafting_shaped",
+   "pattern": [
+      "SGH",
+      "DBI",
+      "HNS"
+   ],
+   "key": {
+      "S": {
+         "item": "minecraft:sweet_berries"
+      },
+      "G": {
+         "item": "minecraft:gold_block"
+      },
+      "H": {
+         "item": "minecraft:honeycomb"
+      },
+      "D": {
+         "item": "minecraft:diamond_block"
+      },
+      "B": {
+         "item": "minecraft:beacon"
+      },
+      "I": {
+         "item": "minecraft:iron_block"
+      },
+      "N": {
+         "item": "minecraft:netherite_block"
+      }
+   },
+   "result": {
+      "item": "architectsdream:blueprint",
+      "nbt": {
+         "id": "architectsdream:dark_dust",
+         "condition": "WHOLE"
+      }
+   }
+}
