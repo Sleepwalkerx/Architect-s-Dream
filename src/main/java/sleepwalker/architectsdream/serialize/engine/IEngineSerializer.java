@@ -7,6 +7,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import sleepwalker.architectsdream.exseption.NBTParseException;
 import sleepwalker.architectsdream.network.shell.BlueprintShell;
+import sleepwalker.architectsdream.serialize.converters.BlueprintPropertiesSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.engine.BaseStructureEngine;
 
@@ -27,6 +28,7 @@ public interface IEngineSerializer<T extends BaseStructureEngine> {
         buffer.writeEnum(structure.getRarity());
         buffer.writeInt(structure.getEngine().getIcon() == null ? -1 : Item.getId(structure.getEngine().getIcon().getItem()));
 
+        buffer.writeNbt(BlueprintPropertiesSerializer.serialize(blueprint.getProperties()));
     }
 
     default BlueprintShell deserializeShell(@Nonnull PacketBuffer buffer){
@@ -37,7 +39,9 @@ public interface IEngineSerializer<T extends BaseStructureEngine> {
 
         int iconId = buffer.readInt();
 
-        return new BlueprintShell(id, rarity, iconId == -1 ? null : new ItemStack(Item.byId(iconId)));
+        Blueprint.Properties properties = BlueprintPropertiesSerializer.deserialize(buffer.readAnySizeNbt());
+
+        return new BlueprintShell(id, rarity, properties, iconId == -1 ? null : new ItemStack(Item.byId(iconId)));
     }
 
     @Nonnull

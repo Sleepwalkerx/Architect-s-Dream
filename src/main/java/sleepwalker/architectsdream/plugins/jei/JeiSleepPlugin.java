@@ -80,7 +80,7 @@ public class JeiSleepPlugin implements IModPlugin {
 
         event.getShells().forEach(structureShell -> {
 
-            ItemStack stack = BlueprintUtils.genBlueprintFromShell(structureShell.getId(), EnumCondition.WHOLE);
+            ItemStack stack = BlueprintUtils.setBlueprintToItem(structureShell.getId());
 
             boolean flag = runtime.getRecipeManager().getRecipeCategories(new Focus<>(IFocus.Mode.OUTPUT, stack), true).isEmpty();
 

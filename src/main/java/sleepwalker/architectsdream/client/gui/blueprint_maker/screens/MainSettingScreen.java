@@ -27,11 +27,14 @@ import sleepwalker.architectsdream.client.gui.blueprint_maker.utils.WorldRendere
 import sleepwalker.architectsdream.client.gui.blueprint_maker.widget.SimpleScrollRect;
 import sleepwalker.architectsdream.client.gui.widget.ButtonOption;
 import sleepwalker.architectsdream.client.gui.blueprint_maker.*;
+import sleepwalker.architectsdream.client.gui.widget.IntegerFieldWidget;
 import sleepwalker.architectsdream.config.Config;
 import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.serialize.TemplateFileStructure;
 import sleepwalker.architectsdream.serialize.converters.EnumNBT;
 import sleepwalker.architectsdream.structure.Blueprint;
+import sleepwalker.architectsdream.structure.EnumCondition;
+import sleepwalker.architectsdream.utils.NBTTypes;
 import sleepwalker.architectsdream.utils.NBTUtils;
 
 import javax.annotation.Nonnull;
@@ -46,6 +49,8 @@ public class MainSettingScreen extends BaseCustomScreen {
         nameField,
         authorName
     ;
+
+    private final IntegerFieldWidget useOfNumber;
 
     protected ButtonOption<Blueprint.Rarity> rarityOption;
     protected ButtonOption<ValidatorMode> modeOption;
@@ -83,6 +88,12 @@ public class MainSettingScreen extends BaseCustomScreen {
         scrollElements = Lists.newArrayList(
             createFor(ScreenPurpose.PALETTE_TYPE),
             createFor(ScreenPurpose.ENGINE)
+        );
+
+        useOfNumber = new IntegerFieldWidget(
+            new StringTextComponent("num_of_use"),
+            (num) -> num >= -1,
+            -1
         );
 
         readData(data);
@@ -157,6 +168,12 @@ public class MainSettingScreen extends BaseCustomScreen {
         );
         addButton(fileFormatOption);
 
+        useOfNumber.init(
+            font,
+            getLeftPos() + 7, getTopPos() + 123,
+            80
+        );
+
         scrollRect = new SimpleScrollRect<>(
             minecraft,
             Lists.newArrayList(scrollElements.get(activeTab).getValue()),
@@ -185,6 +202,12 @@ public class MainSettingScreen extends BaseCustomScreen {
         nameField.render(matrixStack, mouseX, mouseY, particalTick);
         authorName.render(matrixStack, mouseX, mouseY, particalTick);
         scrollRect.render(matrixStack, mouseX, mouseY, particalTick);
+        useOfNumber.render(matrixStack, mouseX, mouseY, particalTick);
+    }
+
+    @Override
+    public boolean mouseScrolled(double p_231043_1_, double p_231043_3_, double p_231043_5_) {
+        return useOfNumber.mouseScrolled(p_231043_1_, p_231043_3_, p_231043_5_);
     }
 
     @Override
@@ -200,12 +223,12 @@ public class MainSettingScreen extends BaseCustomScreen {
             }
         }
 
-        return scrollRect.mouseClicked(pMouseX, pMouseY, pButton);
+        return scrollRect.mouseClicked(pMouseX, pMouseY, pButton) || useOfNumber.mouseClicked(pMouseX, pMouseY, pButton);
     }
 
     @Override
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
-        return scrollRect.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
+        return scrollRect.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY) || useOfNumber.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
     }
 
     @Override
@@ -215,7 +238,10 @@ public class MainSettingScreen extends BaseCustomScreen {
             return false;
         }
 
-        if(nameField.keyPressed(keyCode, pScanCode, pModifiers) || nameField.canConsumeInput()){
+        if(useOfNumber.keyPressed(keyCode, pScanCode, pModifiers) || useOfNumber.canConsumeInput()){
+            return true;
+        }
+        else if(nameField.keyPressed(keyCode, pScanCode, pModifiers) || nameField.canConsumeInput()){
             return true;
         }
         else if(registryID.keyPressed(keyCode, pScanCode, pModifiers) || registryID.canConsumeInput()){
@@ -230,6 +256,9 @@ public class MainSettingScreen extends BaseCustomScreen {
     @Override
     public boolean charTyped(char symbol, int p_231042_2_) {
 
+        if(useOfNumber.charTyped(symbol, p_231042_2_) || useOfNumber.canConsumeInput()){
+            return true;
+        }
         if(nameField.charTyped(symbol, p_231042_2_) || nameField.canConsumeInput()){
             return true;
         }
@@ -252,6 +281,8 @@ public class MainSettingScreen extends BaseCustomScreen {
         font.draw(matrixStack, i18n("title_author"), 6, 40, 0x727272);
         font.draw(matrixStack, i18n("title_mode"), 119, 77, 0x727272);
         font.draw(matrixStack, i18n("title_file_format"), 6, 77, 0x727272);
+        font.draw(matrixStack, i18n("title_num_of_use"), 6, 113, 0x727272);
+        font.draw(matrixStack, "(-1 == infinity)", 6, 145, 0x727272);
 
         // табы
         for(int i = 0; i < scrollElements.size(); i++){
@@ -342,10 +373,16 @@ public class MainSettingScreen extends BaseCustomScreen {
 
     @Override
     public void readData(CompoundNBT data) {
+
         cacheName = NBTUtils.getString(data, R.BlueprintTemplate.NAME, Config.CLIENT.name.get());
         cacheRegID = NBTUtils.getString(data, R.BlueprintTemplate.REGISTRATION_ID, Config.CLIENT.namespace.get());
         cacheAuthor = NBTUtils.getString(data, R.BlueprintTemplate.AUTHOR, Config.CLIENT.author.get());
         cacheMode = ValidatorMode.getValidator(new ResourceLocation(data.getString(R.BlueprintTemplate.VALIDATOR_MODE)));
+
+        if(data.contains(R.Properties.NUMBER_OF_USE, NBTTypes.INT)){
+            useOfNumber.setNumber(data.getInt(R.Properties.NUMBER_OF_USE));
+        }
+
         if(cacheMode == null){
             cacheMode = ValidatorMode.CONST;
         }
@@ -373,6 +410,8 @@ public class MainSettingScreen extends BaseCustomScreen {
 
     @Override
     public void saveData(CompoundNBT fileIn) {
+
+        fileIn.putInt(R.Properties.NUMBER_OF_USE, useOfNumber.getNumber());
         fileIn.putString(R.BlueprintTemplate.AUTHOR, authorName.getValue());
         fileIn.putString(R.BlueprintTemplate.NAME, nameField.getValue());
         fileIn.putString(R.BlueprintTemplate.REGISTRATION_ID, registryID.getValue());
@@ -383,8 +422,14 @@ public class MainSettingScreen extends BaseCustomScreen {
 
     @Override
     public void serializeTemplateStructure(@Nonnull TemplateFileStructure fileStructure) {
+
         fileStructure.author = authorName.getValue();
         fileStructure.rarity = rarityOption.getSelected();
+
+        if(useOfNumber.getNumber() != Blueprint.Properties.INFINITY){
+            fileStructure.properties = new Blueprint.Properties(useOfNumber.getNumber(), EnumCondition.WHOLE);
+        }
+
         calculatePosData(WorldRenderer.getPoints(), fileStructure);
     }
 

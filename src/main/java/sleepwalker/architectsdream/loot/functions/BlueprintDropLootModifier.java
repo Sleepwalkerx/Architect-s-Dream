@@ -45,7 +45,7 @@ public class BlueprintDropLootModifier extends LootModifier {
                 generatedLoot.clear();
             }
 
-            generatedLoot.add(BlueprintUtils.setBlueprintToItem(new ItemStack(Items.Blueprint.get()), blueprint, EnumCondition.WHOLE));
+            generatedLoot.add(BlueprintUtils.setBlueprintToItem(blueprint.getID()));
         }
 
         return generatedLoot;

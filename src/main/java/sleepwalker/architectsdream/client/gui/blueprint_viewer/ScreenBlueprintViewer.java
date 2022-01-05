@@ -15,6 +15,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import sleepwalker.architectsdream.ArchitectsDream;
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.client.ISavable;
 import sleepwalker.architectsdream.client.ISavableHandler;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.IInfoGroup;
@@ -26,7 +27,6 @@ import sleepwalker.architectsdream.client.gui.blueprint_viewer.window.WindowInfo
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.window.WindowStructureViewer;
 import sleepwalker.architectsdream.network.PacketBlueprintToServer;
 import sleepwalker.architectsdream.network.PacketHandler;
-import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.serialize.engine.IEngineSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.container.IVerifiable;
@@ -69,7 +69,6 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
    private SliderStructureViewer structLevel;
 
    private final Collection<IWindow> windows = new ArrayList<>();
-
 
    public ScreenBlueprintViewer(ContainerBlueprintViewer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 
@@ -120,6 +119,8 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
       getMenu().blueprint = blueprint;
 
       initData();
+
+      init();
    }
 
    protected void initBlueprint(){
@@ -302,7 +303,7 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
 
       font.draw(stack, title, 315f, y,0x3b3b3b);
 
-      if(title.length() + name.length() > 17){
+      if(font.width(name) + titleWidth > 100){
 
          stack.pushPose();
          stack.translate((317f + titleWidth) * 0.3f, (y + (font.lineHeight / 2f))  * 0.3f, 0);

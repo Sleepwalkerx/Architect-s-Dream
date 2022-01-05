@@ -27,6 +27,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import sleepwalker.architectsdream.init.Items;
 import sleepwalker.architectsdream.client.resources.ShellManager;
+import sleepwalker.architectsdream.network.shell.BlueprintShell;
 import sleepwalker.architectsdream.utils.BlueprintUtils;
 
 import javax.annotation.Nonnull;
@@ -43,40 +44,13 @@ public class BlueprintOverlayGui extends AbstractGui {
         itemRenderer = Minecraft.getInstance().getItemRenderer();
     }
 
-    /*int xx = 300, yy;
-    int factor = 10;
-
-    @SubscribeEvent
-    public void keyPressed(@Nonnull InputEvent.KeyInputEvent event){
-
-
-        //g
-        if(event.getKey() == 71){
-            if(Screen.hasControlDown()){
-                xx -= factor;
-            }
-            else xx += factor;
-
-            System.out.println(xx);
-        }
-
-        //h
-        if(event.getKey() == 72){
-            if(Screen.hasControlDown()){
-                yy--;
-            }
-            else yy++;
-        }
-    }*/
 
     private ContainerScreen<?> containerScreen;
     private List<Slot> containerSlots;
 
-    private int leftPos, topPos;
-
 
     @SubscribeEvent
-    public void guiOpenEvent(GuiOpenEvent event){
+    public void guiOpenEvent(@Nonnull GuiOpenEvent event){
 
         if(event.getGui() == null){
 
@@ -163,7 +137,7 @@ public class BlueprintOverlayGui extends AbstractGui {
         }
     }
 
-    private void renderSlot(int x, int y, float tick, PlayerEntity playerEntity, ItemStack itemStack) {
+    private void renderSlot(int x, int y, float tick, PlayerEntity playerEntity, @Nonnull ItemStack itemStack) {
 
         if(itemStack.getItem() != Items.Blueprint.get()){
             return;
@@ -171,7 +145,13 @@ public class BlueprintOverlayGui extends AbstractGui {
 
         ResourceLocation location = BlueprintUtils.getBlueprintIdFromItem(itemStack);
 
-        ItemStack stack = ShellManager.getClientStorage().get(location).getIcon();
+        BlueprintShell shell = ShellManager.getClientStorage().get(location);
+
+        if(shell == null){
+            return;
+        }
+
+        ItemStack stack = shell.getIcon();
 
         if(stack == null){
             return;

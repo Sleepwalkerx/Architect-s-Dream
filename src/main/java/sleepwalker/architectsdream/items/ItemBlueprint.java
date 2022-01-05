@@ -13,11 +13,13 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
+import sleepwalker.architectsdream.ArchitectsDream;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.ContainerBlueprintViewer;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.Blueprint.Rarity;
@@ -45,7 +47,7 @@ public class ItemBlueprint extends Item {
 
             return convertName(id, stack);
         }
-        else return new TranslationTextComponent(BlueprintUtils.getBlueprintCondition(stack).translationKey);
+        else return new TranslationTextComponent(BlueprintUtils.getItemStackClientProperties(stack).getCondition().translationKey);
     }
 
     @Nonnull
@@ -72,18 +74,24 @@ public class ItemBlueprint extends Item {
         }
 
         return new TranslationTextComponent(
-            BlueprintUtils.getBlueprintCondition(stack).translationKey,
+                BlueprintUtils.getItemStackClientProperties(stack).getCondition().translationKey,
             name
         );
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        tooltip.add(BlueprintUtils.getBlueprintRarity(stack).getDisplayName());
-    }
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
 
-    // TODO: net.minecraftforge.event.ForgeEventFactory.onItemTooltip
+        tooltip.add(BlueprintUtils.getBlueprintRarity(stack).getDisplayName());
+
+        Blueprint.Properties properties = BlueprintUtils.getItemStackClientProperties(stack);
+
+        if(properties.getNumberOfUses() != Blueprint.Properties.INFINITY){
+
+            tooltip.add(new TranslationTextComponent(String.format("%s.blueprint.properties.num_of_use", ArchitectsDream.MODID), properties.getNumberOfUses()));
+        }
+    }
 
     @Override
     @Nonnull
@@ -114,11 +122,6 @@ public class ItemBlueprint extends Item {
     }
 
     @Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        return super.onItemUseFirst(stack, context);
-    }
-
-    @Override
     @Nonnull
     public ActionResultType useOn(@Nonnull ItemUseContext itemContext) {
 
@@ -140,15 +143,6 @@ public class ItemBlueprint extends Item {
 
         return ActionResultType.SUCCESS;
     }
-
-    /*@Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-
-        playerIn.openGui(ArchitectsDream.MODID, handIn.ordinal() + 1, worldIn, 5, 5, 5);
-        playerIn.addStat(StatList.getObjectUseStats(this));
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-    }*/
 
     @OnlyIn(Dist.CLIENT)
     @Override

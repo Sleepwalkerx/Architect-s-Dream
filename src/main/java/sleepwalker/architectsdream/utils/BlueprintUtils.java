@@ -5,10 +5,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.client.resources.ShellManager;
 import sleepwalker.architectsdream.init.Items;
 import sleepwalker.architectsdream.network.shell.BlueprintShell;
 import sleepwalker.architectsdream.resources.BlueprintManager;
+import sleepwalker.architectsdream.serialize.converters.BlueprintPropertiesSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.Blueprint.Rarity;
 import sleepwalker.architectsdream.structure.EnumCondition;
@@ -17,38 +19,33 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static sleepwalker.architectsdream.R.Blueprint.BLUEPRINT_NAME;
-import static sleepwalker.architectsdream.R.Blueprint.CONDITION;
 
 public final class BlueprintUtils {
 
     private BlueprintUtils(){ throw new IllegalStateException("Utility class"); }
 
     @Nonnull
-    public static ItemStack setBlueprintToItem(@Nonnull ItemStack itemStack, @Nonnull ResourceLocation id, @Nonnull EnumCondition condition){
+    public static ItemStack setBlueprintToItem(@Nonnull ResourceLocation id){
 
-        CompoundNBT tagCompound = itemStack.getOrCreateTag();
+        ItemStack itemStack = new ItemStack(Items.Blueprint.get());
+
+        CompoundNBT tagCompound = new CompoundNBT();
 
         tagCompound.putString(BLUEPRINT_NAME, id.toString());
-        tagCompound.putString(CONDITION, condition.toString());
 
         itemStack.setTag(tagCompound);
 
         return itemStack;
     }
 
-    @Nonnull
-    @OnlyIn(Dist.CLIENT)
-    public static ItemStack genBlueprintFromShell(@Nonnull ResourceLocation id, EnumCondition condition){
-        return setBlueprintToItem(new ItemStack(Items.Blueprint.get()), id, condition);
-    }
+    /*@Nonnull
+    public static ItemStack setBlueprintToItem(@Nonnull ItemStack stack, @Nonnull Blueprint blueprint){
+        return setBlueprintToItem(stack, blueprint.getID());
+    }*/
 
-    @Nonnull
-    public static ItemStack setBlueprintToItem(@Nonnull ItemStack stack, @Nonnull Blueprint blueprint, @Nonnull EnumCondition condition){
-        return setBlueprintToItem(stack, blueprint.getID(), condition);
-    }
+    @Nullable
+    public static Blueprint getStructureFromItem(@Nonnull ItemStack itemStack){
 
-    public static @Nullable
-    Blueprint getStructureFromItem(@Nonnull ItemStack itemStack){
         ResourceLocation id = getBlueprintIdFromItem(itemStack);
 
         if(id != null){
@@ -66,19 +63,24 @@ public final class BlueprintUtils {
         return null;
     }
 
-    public static EnumCondition getBlueprintCondition(@Nonnull ItemStack itemStack){
+    @OnlyIn(Dist.CLIENT)
+    public static Blueprint.Properties getItemStackClientProperties(@Nonnull ItemStack stack){
 
-        if(itemStack.hasTag()){
+        if(stack.getOrCreateTag().contains(R.Properties.NAME, NBTTypes.OBJECT)){
 
-            try {
-                String name = itemStack.getOrCreateTag().getString(CONDITION);
-
-                return EnumCondition.valueOf(name);
-            }
-            catch (IllegalArgumentException ignored) { }
+            return BlueprintPropertiesSerializer.deserialize(stack.getTag().getCompound(R.Properties.NAME));
         }
+        else {
 
-        return EnumCondition.WHOLE;
+            ResourceLocation id = new ResourceLocation(stack.getTag().getString(BLUEPRINT_NAME));
+
+            BlueprintShell shell = ShellManager.getClientStorage().get(id);
+
+            if(shell == null){
+                return Blueprint.Properties.DEFAULT;
+            }
+            else return shell.getDefaultProperties();
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -90,11 +92,11 @@ public final class BlueprintUtils {
 
             BlueprintShell shell = ShellManager.getClientStorage().get(location);
 
-            if(shell == null){
-                return Rarity.NONE;
+            if(shell != null) {
+                return shell.getRarity();
             }
-            else return shell.getRarity();
         }
+
         return Rarity.SIMPLE;
     }
 }

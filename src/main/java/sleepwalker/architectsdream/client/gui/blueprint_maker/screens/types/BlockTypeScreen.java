@@ -135,7 +135,7 @@ public class BlockTypeScreen extends BaseCustomScreen {
 
         scrollTags = new SimpleScrollRect<>(
                 mc, new ArrayList<>(), 9,
-                170, 100,
+                168, 100,
                 getLeftPos() + 210, getTopPos() + 78
         );
         getChildren().add(scrollListBlocks);

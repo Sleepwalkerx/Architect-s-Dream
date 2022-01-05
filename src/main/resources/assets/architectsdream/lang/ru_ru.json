@@ -12,6 +12,8 @@
     "architectsdream.blueprint.condition.defective" : "Поврежденный Чертёж %s",
     "architectsdream.blueprint.condition.none" : "Пустой Чертёж",
 
+    "architectsdream.blueprint.properties.num_of_use" : "Число использований: %d",
+
     "_" : "========================== Analysis ===========================",
 
     "architectsdream.structure.analysis.correctly_build" : "Структура сформирована удачно",
@@ -45,12 +47,15 @@
     "_": "________ Main Setting _________",
 
     "screen.architectsdream.blueprint_creator.main_setting.name": "Главные настройки",
+
     "screen.architectsdream.blueprint_creator.main_setting.title_reg_id": "Регистр. id",
     "screen.architectsdream.blueprint_creator.main_setting.title_name": "Имя",
     "screen.architectsdream.blueprint_creator.main_setting.title_rarity": "Редкость",
     "screen.architectsdream.blueprint_creator.main_setting.title_author": "Автор",
     "screen.architectsdream.blueprint_creator.main_setting.title_mode": "Режим сетки",
     "screen.architectsdream.blueprint_creator.main_setting.title_file_format": "Формат файла",
+    "screen.architectsdream.blueprint_creator.main_setting.title_num_of_use": "Количество использований",
+
     "screen.architectsdream.blueprint_creator.main_setting.tab.engine": "Движок",
     "screen.architectsdream.blueprint_creator.main_setting.tab.challenge": "Челленд",
     "screen.architectsdream.blueprint_creator.main_setting.tab.palette_type": "Тип палитры",

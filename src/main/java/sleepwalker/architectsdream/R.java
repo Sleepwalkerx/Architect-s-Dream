@@ -1,24 +1,14 @@
 package sleepwalker.architectsdream;
 
 import net.minecraft.util.ResourceLocation;
-import sleepwalker.architectsdream.ArchitectsDream;
 
 public final class R {
     private R(){ }
     public static final String
         FOLDER_DATA_NAME = "blueprints",
-        // Number Operation
-        NUMBEROPERATION_VALUE     = "value",
-        NUMBEROPERATION_TYPE      = "type",
 
-        // Exseption
-        EXSEPTION_FUNCNAME_NOTEXIST = "The function with the name \"%s\" does not exist",
         EXSEPTION_ITEM_NOTEXIST = "The item with the name \"%s\" does not exist",
         EXSEPTION_EMPTY_OBJECT = "The \"%s\" field cannot be empty or null",
-        EXSEPTION_INVALID_VEC3I = "Vec3i should be \"IntArray\" from 3 elements",
-        EXSEPTION_INVALID_NUMBEROPERATION = "NumericOperation should be \"Primitive\" or \"Object\"",
-
-        EXSEPTION_BLOCKPOS_FORMAT = "",
 
         NAME = "name"
     ;
@@ -36,6 +26,7 @@ public final class R {
     }
 
     public static class Validator {
+
         public static final String
             PALETTE_STATE = "state",
             POSITION = "pos"
@@ -64,6 +55,14 @@ public final class R {
         ;
     }
 
+    public static class Properties {
+        public static final String
+            NAME = "properties",
+            NUMBER_OF_USE = "num_of_use",
+            CONDITION = "condition"
+        ;
+    }
+
     public static class Warn {
         public static final String
             UNUSED_OBJECT = "Find unused object \"%s\""
@@ -75,37 +74,20 @@ public final class R {
             ENGINE_NAME = "name",
             ENGINE_PROPERTIES = "properties",
 
-            CHALLENGE_OBJECT = "challenges",
-            CHALLENGE_NAME = "name",
-
             STRUCTURE_VERSION = "version",
             STRUCTURE_AUTHOR = "author",
             STRUCTURE_SIZE = "size",
             STRUCTURE_RARITY = "rarity",
             STRUCTURE_ENGINE = "engine",
             STRUCTURE_PALETTE = "palette",
-            STRUCTURE_VALIDATORS = "validators",
-            STRUCTURE_CHALLENGES = "challenges"
+            STRUCTURE_VALIDATORS = "validators"
         ;
-    }
-
-    public static class ChallengeConstructionExperience {
-        public static final String
-            /** INT */
-            EXPERIENCE = "exp",
-            /** INT */
-            HAVE_EXPERIENCE = "have_exp"
-        ;
-
-        public static final ResourceLocation NAME = ArchitectsDream.namespace("construction_exp");
     }
 
     public static class BaseEngine {
         private BaseEngine(){}
 
         public static final String
-            /** STRING ARRAY */
-            ITEMS_LOCKED = "locked_items",
             ENGINE_TYPE_DO = "engine_type_do"
         ;
     }
@@ -122,6 +104,7 @@ public final class R {
 
     public static class BlueprintTemplate {
         public static final String
+
             REGISTRATION_ID = "temp_reg_id",
             NAME = "temp_name",
             AUTHOR = "temp_author",
@@ -158,15 +141,7 @@ public final class R {
             // CLIENT ONLY
             RARITY = "rarity",
 
-            // COMMON
-            CONDITION = "condition",
             BLUEPRINT_NAME = "id"
-        ;
-    }
-
-    public static class ModID {
-        public static final String
-            EXTENDED_CRAFTING = "extendedcrafting"
         ;
     }
 }

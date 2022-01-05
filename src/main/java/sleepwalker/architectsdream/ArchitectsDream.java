@@ -33,6 +33,7 @@ import sleepwalker.architectsdream.items.ItemBlueprintCreator;
 import sleepwalker.architectsdream.listeners.PlayerEventListener;
 import sleepwalker.architectsdream.network.PacketHandler;
 import sleepwalker.architectsdream.resources.BlueprintManager;
+import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.EnumCondition;
 import sleepwalker.architectsdream.utils.BlueprintUtils;
 import sleepwalker.architectsdream.utils.RegistryUtils;
@@ -60,14 +61,14 @@ public final class ArchitectsDream {
 
             ShellManager.getClientStorage().forEach((resourceLocation, structureShell) -> {
 
-                items.add(BlueprintUtils.genBlueprintFromShell(resourceLocation, EnumCondition.WHOLE));
+                items.add(BlueprintUtils.setBlueprintToItem(resourceLocation));
             });
         }
 
         @Nonnull
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(Items.Blueprint.get());
+            return BlueprintUtils.setBlueprintToItem(Blueprint.DEFAULT.getID());
         }
     };
 
@@ -137,9 +138,9 @@ public final class ArchitectsDream {
 
             ItemModelsProperties.register(
                 Items.Blueprint.get(), 
-                new ResourceLocation(R.Blueprint.CONDITION),
-                (stack, worldIn, entityIn) -> 
-                BlueprintUtils.getBlueprintCondition(stack).ordinal()
+                new ResourceLocation(R.Properties.CONDITION),
+                (stack, worldIn, entityIn) ->
+                BlueprintUtils.getItemStackClientProperties(stack).getCondition().ordinal()
             );
         });
     }

@@ -54,7 +54,7 @@ public class ContainerBlueprintViewer extends Container {
         ResourceLocation idBlueprint = BlueprintUtils.getBlueprintIdFromItem(this.itemBlueprint);
         Blueprint blueprint = BlueprintManager.getBlueprint(idBlueprint);
 
-        this.blueprint = Blueprint.EMPTY;
+        this.blueprint = Blueprint.DEFAULT;
 
         if(blueprint == null){
 

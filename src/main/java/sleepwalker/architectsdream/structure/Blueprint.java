@@ -12,12 +12,14 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import sleepwalker.architectsdream.ArchitectsDream;
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.client.gui.IDisplayName;
 import sleepwalker.architectsdream.math.UVector3i;
 import sleepwalker.architectsdream.structure.engine.BaseStructureEngine;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Blueprint {
 
@@ -31,17 +33,27 @@ public class Blueprint {
     protected final RenderProperty renderProperty;
 
     @Nonnull
-    private final CompoundNBT source;
+    private final CompoundNBT sourceForClient;
 
-    public Blueprint(@Nonnull ResourceLocation id, @Nonnull Structure structure, @Nonnull CompoundNBT source, @Nonnull RenderProperty renderProperty){
+    @Nonnull
+    private final Properties properties;
+
+    public Blueprint(
+        @Nonnull ResourceLocation id,
+        @Nonnull Structure structure,
+        @Nonnull CompoundNBT sourceForClient,
+        @Nonnull RenderProperty renderProperty,
+        @Nonnull Properties properties
+    ){
         this.structure = structure;
         this.id = id;
-        this.source = source;
+        this.sourceForClient = sourceForClient;
         this.renderProperty = renderProperty;
+        this.properties = properties;
     }
 
     @Nonnull
-    public CompoundNBT getSource(){ return source; }
+    public CompoundNBT getSourceForClient(){ return sourceForClient; }
 
     @Nonnull
     public Structure getStructure(){
@@ -54,11 +66,19 @@ public class Blueprint {
     }
 
     @Nonnull
+    public Properties getProperties() { return properties; }
+
+    @Nonnull
     public ResourceLocation getID(){
         return id;
     }
 
-    public @Nonnull Result matches(ItemUseContext itemContext){
+    @Nonnull
+    public Result matches(ItemUseContext itemContext){
+
+        if(itemContext.getItemInHand().getCount() == 0){
+            return Result.EMPTY_STRUCTURE;
+        }
 
         for(PlacementData placementData : structure.placementData){
 
@@ -66,6 +86,8 @@ public class Blueprint {
 
             if(shiftPos != null){
                 if(structure.engine.formed(shiftPos, this, placementData, itemContext)){
+
+                    properties.onStructureFormed(itemContext, this);
 
                     return Result.CORRECTLY_FORMED;
                 }
@@ -91,6 +113,7 @@ public class Blueprint {
             this.style = style;
         }
 
+        @Nonnull
         @OnlyIn(Dist.CLIENT)
         public ITextComponent getDisplayName() { 
             return new TranslationTextComponent(
@@ -122,6 +145,83 @@ public class Blueprint {
 
         private static String trans(String key){
             return String.format("%s.structure.analysis.%s", ArchitectsDream.MODID, key);
+        }
+    }
+
+    public static class Properties {
+
+        public static final int INFINITY = -1;
+
+        public static final Properties DEFAULT = new Properties(-1, EnumCondition.WHOLE){
+
+            @Override
+            void onStructureFormed(ItemUseContext context, Blueprint blueprint) { }
+        };
+
+        private final int numberOfUses;
+
+        @Nonnull
+        private final EnumCondition condition;
+
+        public Properties(int numberOfUses, @Nonnull EnumCondition condition){
+
+            this.numberOfUses = numberOfUses;
+            this.condition = condition;
+        }
+
+        public int getNumberOfUses() {
+            return numberOfUses;
+        }
+
+        @Nonnull
+        public EnumCondition getCondition() {
+            return condition;
+        }
+
+        void onStructureFormed(final ItemUseContext context, final Blueprint blueprint){
+
+            if(numberOfUses != INFINITY && !context.getPlayer().isCreative()){
+
+                CompoundNBT itemCompound = context.getItemInHand().getOrCreateTag();
+
+                CompoundNBT properties = context.getItemInHand().getOrCreateTag().getCompound(R.Properties.NAME);
+
+                int number = properties.getInt(R.Properties.NUMBER_OF_USE);
+
+                if(number == 0){
+                    number = numberOfUses;
+                }
+
+                number--;
+
+                if(number <= 0){
+
+                    context.getItemInHand().setCount(0);
+
+                    return;
+                }
+                else {
+
+                    properties.putInt(R.Properties.NUMBER_OF_USE, number);
+                }
+
+                itemCompound.put(R.Properties.NAME, properties);
+
+                context.getItemInHand().setTag(itemCompound);
+            }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Properties that = (Properties) o;
+            return numberOfUses == that.numberOfUses && condition == that.condition;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(numberOfUses, condition);
         }
     }
 
@@ -165,11 +265,12 @@ public class Blueprint {
         );
     }
 
-    public static final Blueprint EMPTY = new Blueprint(
+    public static final Blueprint DEFAULT = new Blueprint(
         new ResourceLocation(ArchitectsDream.MODID, "null-empty"),
         Structure.EMPTY,
         new CompoundNBT(),
-        RenderProperty.DEFAULT
+        RenderProperty.DEFAULT,
+        Blueprint.Properties.DEFAULT
     ){
 
         @Nonnull

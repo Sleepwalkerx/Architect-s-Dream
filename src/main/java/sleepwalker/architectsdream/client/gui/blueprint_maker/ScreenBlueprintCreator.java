@@ -159,6 +159,7 @@ public class ScreenBlueprintCreator extends ContainerScreen<ContainerBlueprintCr
     }
 
     protected void createFile(Button button){
+
         TemplateFileStructure templateFileStructure = new TemplateFileStructure();
         cacheScreens.forEach(screen -> screen.serializeTemplateStructure(templateFileStructure));
 

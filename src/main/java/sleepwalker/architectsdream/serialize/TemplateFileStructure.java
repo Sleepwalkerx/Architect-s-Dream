@@ -6,6 +6,8 @@ import net.minecraft.util.math.BlockPos;
 
 import net.minecraft.util.math.vector.Vector3i;
 import sleepwalker.architectsdream.serialize.validator.IValidatorSerializer;
+import sleepwalker.architectsdream.structure.Blueprint;
+import sleepwalker.architectsdream.structure.RenderProperty;
 import sleepwalker.architectsdream.structure.container.IVerifiable;
 import sleepwalker.architectsdream.structure.engine.BaseStructureEngine;
 import sleepwalker.architectsdream.structure.Blueprint.Rarity;
@@ -17,6 +19,10 @@ public final class TemplateFileStructure {
     public String author = "Anonymous";
     public Rarity rarity = Rarity.SIMPLE;
     public Vector3i size = Vector3i.ZERO;
+
+    public RenderProperty renderProperty = RenderProperty.DEFAULT;
+
+    public Blueprint.Properties properties = Blueprint.Properties.DEFAULT;
 
     public transient BlockPos maxPos, minPos;
 

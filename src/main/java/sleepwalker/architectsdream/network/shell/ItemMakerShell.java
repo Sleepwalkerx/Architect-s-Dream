@@ -13,8 +13,14 @@ public class ItemMakerShell extends BlueprintShell {
     @Nonnull
     private final List<ItemStack> itemStacks;
 
-    public ItemMakerShell(ResourceLocation id, Blueprint.Rarity rarity, @Nullable ItemStack icon, @Nonnull List<ItemStack> items) {
-        super(id, rarity, icon);
+    public ItemMakerShell(
+            @Nonnull ResourceLocation id,
+            @Nonnull Blueprint.Rarity rarity,
+            @Nonnull Blueprint.Properties properties,
+            @Nullable ItemStack icon,
+            @Nonnull List<ItemStack> items
+    ) {
+        super(id, rarity, properties, icon);
 
         this.itemStacks = items;
     }

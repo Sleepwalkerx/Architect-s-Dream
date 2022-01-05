@@ -12,6 +12,8 @@
     "architectsdream.blueprint.condition.defective" : "Defective Blueprint %s",
     "architectsdream.blueprint.condition.none" : "Empty Blueprint",
 
+    "architectsdream.blueprint.properties.num_of_use" : "Number of uses: %d",
+
     "_" : "========================== Analysis ===========================",
 
     "architectsdream.structure.analysis.correctly_build" : "Structure successfully formed",
@@ -45,12 +47,15 @@
     "_": "________ Main Setting _________",
 
     "screen.architectsdream.blueprint_creator.main_setting.name": "Main setting",
+
     "screen.architectsdream.blueprint_creator.main_setting.title_reg_id": "Registration ID",
     "screen.architectsdream.blueprint_creator.main_setting.title_name": "Name",
     "screen.architectsdream.blueprint_creator.main_setting.title_rarity": "Rarity",
     "screen.architectsdream.blueprint_creator.main_setting.title_author": "Author",
     "screen.architectsdream.blueprint_creator.main_setting.title_mode": "Mode Mesh Selection",
     "screen.architectsdream.blueprint_creator.main_setting.title_file_format": "File Format",
+    "screen.architectsdream.blueprint_creator.main_setting.title_num_of_use": "Number Of Use",
+
     "screen.architectsdream.blueprint_creator.main_setting.tab.engine": "Engine",
     "screen.architectsdream.blueprint_creator.main_setting.tab.palette_type": "Palette Type",
     "screen.architectsdream.blueprint_creator.main_setting.validator_mode.const": "Constant",

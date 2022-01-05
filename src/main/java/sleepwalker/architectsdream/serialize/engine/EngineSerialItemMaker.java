@@ -12,6 +12,7 @@ import sleepwalker.architectsdream.network.shell.BlueprintShell;
 import sleepwalker.architectsdream.network.shell.ItemMakerShell;
 import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.serialize.converters.BlueprintPropertiesSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.engine.StructureEngineItemMaker;
 
@@ -62,6 +63,10 @@ public class EngineSerialItemMaker implements IEngineSerializer<StructureEngineI
 
         int iconId = buffer.readInt();
 
+        Blueprint.Properties properties = BlueprintPropertiesSerializer.deserialize(buffer.readAnySizeNbt());
+
+        //itemMaker
+
         int size = buffer.readInt();
 
         List<ItemStack> itemStacks = new ArrayList<>(size);
@@ -70,7 +75,7 @@ public class EngineSerialItemMaker implements IEngineSerializer<StructureEngineI
             itemStacks.add(buffer.readItem());
         }
 
-        return new ItemMakerShell(id, rarity, iconId == -1 ? null : new ItemStack(Item.byId(iconId)), itemStacks);
+        return new ItemMakerShell(id, rarity, properties, iconId == -1 ? null : new ItemStack(Item.byId(iconId)), itemStacks);
     }
 
     @Override

@@ -15,7 +15,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
-version = '1.0'
+version = '1.16.5-0.1.2-beta'
 group = 'com.sleepwalker.architectsdream'
 archivesBaseName = 'architectsdream'
 

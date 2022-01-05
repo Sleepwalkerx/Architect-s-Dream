@@ -17,6 +17,7 @@ import java.util.function.Function;
 
 @OnlyIn(Dist.CLIENT)
 public class IntegerFieldWidget {
+
     private TextFieldWidget textField;
     private Button leftButton, rightButton;
     private int number;
@@ -25,6 +26,7 @@ public class IntegerFieldWidget {
     private final Function<Integer, Boolean> function;
 
     public IntegerFieldWidget(ITextComponent name, Function<Integer, Boolean> function, int number) {
+
         this.name = name;
         this.function = function;
         this.number = number;
@@ -38,11 +40,13 @@ public class IntegerFieldWidget {
         this(name, integer -> true);
     }
 
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partial){
+    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partial){
         textField.render(matrixStack, mouseX, mouseY, partial);
         leftButton.render(matrixStack, mouseX, mouseY, partial);
         rightButton.render(matrixStack, mouseX, mouseY, partial);
     }
+
+    public boolean canConsumeInput(){ return textField.canConsumeInput(); }
 
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
         return textField.keyPressed(pKeyCode, pScanCode, pModifiers);
@@ -79,7 +83,12 @@ public class IntegerFieldWidget {
     public TextFieldWidget getTextField(){ return textField; }
 
     public IntegerFieldWidget init(FontRenderer font, int left, int top, int width){
-        textField = new TextFieldWidget(font, left += 10, top, width, 18, name){
+        return init(font, left, top, width, 18);
+    }
+
+    public IntegerFieldWidget init(FontRenderer font, int left, int top, int width, int height){
+
+        textField = new TextFieldWidget(font, left += 10, top, width, height, name){
             @Override
             public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
                 addToNumber((int)scroll);
@@ -117,6 +126,14 @@ public class IntegerFieldWidget {
 
     public void addToNumber(int value){
         textField.setValue(String.valueOf(number + value));
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public void saveData(@Nonnull CompoundNBT compoundNBT){

@@ -19,12 +19,12 @@ public class PacketBlueprintToClient {
     @Nonnull
     private final Blueprint blueprint;
 
-    public PacketBlueprintToClient(Blueprint blueprint){
+    public PacketBlueprintToClient(@Nonnull Blueprint blueprint){
         this.blueprint = blueprint;
     }
 
     public static void writePacketData(PacketBlueprintToClient packet, PacketBuffer buffer){
-        buffer.writeNbt(packet.blueprint.getSource());
+        buffer.writeNbt(packet.blueprint.getSourceForClient());
         buffer.writeResourceLocation(packet.blueprint.getID());
     }
 
@@ -49,7 +49,9 @@ public class PacketBlueprintToClient {
                 if(packet == null) return;
 
                 if(Minecraft.getInstance().screen instanceof ScreenBlueprintViewer){
+
                     ((ScreenBlueprintViewer)Minecraft.getInstance().screen).loadBlueprint(packet.blueprint);
+
                     BlueprintManager.addBlueprint(packet.blueprint);
                 }
             });

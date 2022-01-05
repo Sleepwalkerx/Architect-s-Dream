@@ -21,6 +21,7 @@ import sleepwalker.architectsdream.exseption.NBTParseException;
 import sleepwalker.architectsdream.math.UVector3i;
 import sleepwalker.architectsdream.serialize.converters.EngineNBT;
 import sleepwalker.architectsdream.serialize.converters.EnumNBT;
+import sleepwalker.architectsdream.serialize.converters.BlueprintPropertiesSerializer;
 import sleepwalker.architectsdream.serialize.converters.UVector3iNBT;
 import sleepwalker.architectsdream.serialize.engine.EngineSerialItemMaker;
 import sleepwalker.architectsdream.serialize.engine.IEngineSerializer;
@@ -109,6 +110,8 @@ public class SerializerManager {
             Blueprint.Rarity.class
         );
 
+        main.remove(STRUCTURE_RARITY);
+
         Map<String, Pair<List<IVerifiable>, Class<? extends IVerifiable>>> palette = deserializePalette(main.getCompound(STRUCTURE_PALETTE));
 
         if(palette.isEmpty()){
@@ -123,6 +126,18 @@ public class SerializerManager {
 
                 renderProperty = deserializeRend(main.getCompound(R.RenderProperty.NAME));
             }
+        }
+
+        Blueprint.Properties properties;
+
+        if(main.contains(R.Properties.NAME, NBTTypes.OBJECT)){
+
+            properties = BlueprintPropertiesSerializer.deserialize(main.getCompound(R.Properties.NAME));
+
+            main.remove(R.Properties.NAME);
+        }
+        else {
+            properties = Blueprint.Properties.DEFAULT;
         }
 
         return new Blueprint(
@@ -141,11 +156,14 @@ public class SerializerManager {
                 size
             ),
             main,
-            renderProperty
+            renderProperty,
+            properties
         );
     }
 
-    public static CompoundNBT serialize(TemplateFileStructure template){
+    @Nonnull
+    public static CompoundNBT serialize(@Nonnull TemplateFileStructure template){
+
         CompoundNBT structureFile = new CompoundNBT();
 
         structureFile.putString(STRUCTURE_AUTHOR, template.author);
@@ -154,6 +172,14 @@ public class SerializerManager {
         structureFile.put(STRUCTURE_SIZE, UVector3iNBT.serialize(template.size));
 
         structureFile.put(STRUCTURE_ENGINE, EngineNBT.serialize(template.engine));
+
+        if(template.properties != Blueprint.Properties.DEFAULT){
+            structureFile.put(R.Properties.NAME, BlueprintPropertiesSerializer.serialize(template.properties));
+        }
+
+        if(template.renderProperty != RenderProperty.DEFAULT){
+            structureFile.put(R.RenderProperty.NAME, serializeRend(template.renderProperty));
+        }
 
         if(!template.entities.isEmpty()){
             CompoundNBT paletteNBT = new CompoundNBT();
@@ -178,6 +204,17 @@ public class SerializerManager {
             compoundNBT.contains(R.RenderProperty.PITCH, NBTTypes.FLOAT) ? compoundNBT.getFloat(R.RenderProperty.PITCH) : RenderProperty.DEFAULT.getPitch(),
            compoundNBT.contains(R.RenderProperty.YAW) ? compoundNBT.getFloat(R.RenderProperty.YAW) : RenderProperty.DEFAULT.getYaw()
         );
+    }
+
+    @Nonnull
+    private static CompoundNBT serializeRend(@Nonnull RenderProperty property){
+
+        CompoundNBT compoundNBT = new CompoundNBT();
+
+        compoundNBT.putFloat(R.RenderProperty.PITCH, property.getPitch());
+        compoundNBT.putFloat(R.RenderProperty.YAW, property.getYaw());
+
+        return compoundNBT;
     }
 
     @Nonnull
