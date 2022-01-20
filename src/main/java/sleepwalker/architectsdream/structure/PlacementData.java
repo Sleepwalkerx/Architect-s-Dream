@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 import sleepwalker.architectsdream.math.UBlockPos;
@@ -17,12 +18,12 @@ public final class PlacementData {
     /**
      *  Set никогда не пустой
      */
-    protected final Map<Class<? extends IVerifiable>, Set<IValidator>> validators;
+    protected final Map<ResourceLocation, Set<IValidator>> validators;
 
     /**
      * Set - набор различных валидаторов констроля одного типа IVerifiable
     */
-    public PlacementData(Map<Class<? extends IVerifiable>, Set<IValidator>> validators){
+    public PlacementData(Map<ResourceLocation, Set<IValidator>> validators){
         this.validators = validators;
     }
 
@@ -45,7 +46,7 @@ public final class PlacementData {
         return null;
     }
 
-    public Map<Class<? extends IVerifiable>, Set<IValidator>> getValidators(){
+    public Map<ResourceLocation, Set<IValidator>> getValidators(){
         return validators;
     }
 }

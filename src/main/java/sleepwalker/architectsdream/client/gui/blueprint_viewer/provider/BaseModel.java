@@ -13,24 +13,17 @@ public abstract class BaseModel<T extends IVerifiable> implements IModel {
 
     protected final UBlockPos pos;
     protected final T entity;
-    protected final IValidator validator;
     protected boolean visible = true;
 
-    protected BaseModel(IValidator validator, UBlockPos pos, T entity) {
+    protected BaseModel(UBlockPos pos, T entity) {
         this.pos = pos;
         this.entity = entity;
-        this.validator = validator;
     }
 
     @Nonnull
     @Override
     public UBlockPos getPos() {
         return pos;
-    }
-
-    @Override
-    public IValidator getValidator() {
-        return validator;
     }
 
     public T getEntity() {

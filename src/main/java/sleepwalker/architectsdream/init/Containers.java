@@ -7,7 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import sleepwalker.architectsdream.ArchitectsDream;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.ContainerBlueprintViewer;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.ContainerBlueprintCreator;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.ContainerBlueprintCreator;
 
 public final class Containers {
     private Containers(){}

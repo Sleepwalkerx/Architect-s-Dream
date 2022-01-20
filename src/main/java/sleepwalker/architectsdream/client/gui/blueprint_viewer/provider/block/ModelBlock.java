@@ -24,23 +24,13 @@ public class ModelBlock extends BaseModel<ContainerTypeBlock> {
     protected final ItemStack stackIn;
     protected final Minecraft mc;
 
-    protected IInfoElement element;
-
-    protected ModelBlock(IValidator validator, UBlockPos pos, ContainerTypeBlock entity) {
-        super(validator, pos, entity);
+    protected ModelBlock(UBlockPos pos, ContainerTypeBlock entity) {
+        super(pos, entity);
 
         this.pos = pos;
         this.state = entity.getBlockState();
         this.mc = Minecraft.getInstance();
         stackIn = new ItemStack(state.getBlock());
-    }
-
-    public ItemStack getStackIn() {
-        return stackIn;
-    }
-
-    public void setInfoElement(IInfoElement element){
-        this.element = element;
     }
 
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float tick) {
@@ -63,11 +53,6 @@ public class ModelBlock extends BaseModel<ContainerTypeBlock> {
 
     public BlockPos pos() { return pos; }
     public ItemStack getItemStack() { return stackIn; }
-
-    @Override
-    public IInfoElement getInfoElement() {
-        return element;
-    }
 
     @Override
     public void showOnInfoPanel(WindowInfoPanel panel) {

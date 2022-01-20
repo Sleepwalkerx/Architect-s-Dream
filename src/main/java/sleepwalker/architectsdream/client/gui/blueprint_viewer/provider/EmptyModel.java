@@ -19,22 +19,12 @@ public class EmptyModel implements IModel {
     }
 
     @Override
-    public IValidator getValidator() {
-        return null;
-    }
-
-    @Override
     public boolean isVisible() {
         return false;
     }
 
     @Override
     public void setVisible(boolean value) { }
-
-    @Override
-    public IInfoElement getInfoElement() {
-        return null;
-    }
 
     @Override
     public void showOnInfoPanel(WindowInfoPanel panel) {

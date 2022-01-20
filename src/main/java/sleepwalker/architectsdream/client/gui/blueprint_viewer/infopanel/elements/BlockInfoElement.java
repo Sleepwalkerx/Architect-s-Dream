@@ -4,9 +4,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.Property;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.BaseScrollItemTooltips;
+import sleepwalker.architectsdream.client.gui.widget.BaseScrollItemTooltips;
 import sleepwalker.architectsdream.structure.container.ContainerTypeBlock;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +15,7 @@ public class BlockInfoElement extends BaseScrollItemTooltips {
 
     private final ContainerTypeBlock container;
 
-    //private List<ModelBlock> models;
-
-    public BlockInfoElement(ContainerTypeBlock container){
+    public BlockInfoElement(@Nonnull ContainerTypeBlock container){
         super(new ItemStack(container.getBlock()));
 
         this.container = container;
@@ -29,28 +28,26 @@ public class BlockInfoElement extends BaseScrollItemTooltips {
     @Override
     public void genTooltips(){
 
-        List<Text> tooltips = new ArrayList<>();
+        List<SimpleTooltipText> tooltips = new ArrayList<>();
 
         if(container.getTags() != null){
 
-            tooltips.add(Text.of(new StringTextComponent("Block Tag:").withStyle(TextFormatting.YELLOW), 0));
+            tooltips.add(new SimpleTooltipText("Block Tag:", TextFormatting.YELLOW));
 
             container.getTags().getTags().forEach((name, tag) ->
-                tooltips.add(Text.of(new StringTextComponent(name.toString()).withStyle(TextFormatting.WHITE), 5))
+                tooltips.add(new SimpleTooltipText(name.toString(), 5, TextFormatting.WHITE))
             );
         }
 
         if(container.isHasProperties()){
 
-            tooltips.add(Text.of(new StringTextComponent("Block Properties:").withStyle(TextFormatting.YELLOW), 0));
+            tooltips.add(new SimpleTooltipText("Block Properties:", TextFormatting.YELLOW));
 
             if(container.getBlockState() != null){
 
                 container.getBlockState().getValues().forEach((property, comparable) ->
-                    tooltips.add(Text.of(new StringTextComponent(
-                            "  " + property.getName() + ": " + getValue(property, comparable)
-                    ).withStyle(TextFormatting.WHITE), 5)
-                ));
+                    tooltips.add(new SimpleTooltipText("  " + property.getName() + ": " + getValue(property, comparable), 5))
+                );
             }
         }
 
@@ -72,8 +69,9 @@ public class BlockInfoElement extends BaseScrollItemTooltips {
         else return false;
     }
 
+    @Nonnull
     @SuppressWarnings("unchecked")
-    private <T extends Comparable<T>> String getValue(Property<T> property, Comparable<?> value) {
+    private <T extends Comparable<T>> String getValue(@Nonnull Property<T> property, Comparable<?> value) {
         return property.getName((T)value);
     }
 

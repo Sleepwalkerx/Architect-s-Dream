@@ -5,6 +5,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 import net.minecraft.util.math.vector.Vector3i;
+import sleepwalker.architectsdream.math.UBlockPos;
+import sleepwalker.architectsdream.math.UVector3i;
 import sleepwalker.architectsdream.serialize.validator.IValidatorSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.RenderProperty;
@@ -18,9 +20,9 @@ public final class TemplateFileStructure {
 
     public String author = "Anonymous";
     public Rarity rarity = Rarity.SIMPLE;
-    public Vector3i size = Vector3i.ZERO;
+    public UVector3i size = UVector3i.ZERO;
 
-    public RenderProperty renderProperty = RenderProperty.DEFAULT;
+    public RenderProperty.Data rend_prop = new RenderProperty.Data();
 
     public Blueprint.Properties properties = Blueprint.Properties.DEFAULT;
 
@@ -33,7 +35,7 @@ public final class TemplateFileStructure {
     public static class Entity {
         public ResourceLocation id;
         public List<IVerifiable> palette;
-        public Map<IValidatorSerializer, Map<BlockPos, Integer>> validators;
+        public Map<IValidatorSerializer, Map<UBlockPos, Integer>> validators;
 
         @Override
         public boolean equals(Object o) {

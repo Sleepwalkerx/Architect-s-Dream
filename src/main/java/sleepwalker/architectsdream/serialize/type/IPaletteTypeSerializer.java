@@ -8,12 +8,12 @@ import sleepwalker.architectsdream.structure.container.IVerifiable;
 import javax.annotation.Nonnull;
 
 public interface IPaletteTypeSerializer<T extends IVerifiable> {
+
     CompoundNBT serialize(T src);
-    @Nonnull
-    public abstract IVerifiable deserialize(CompoundNBT entity) throws NBTParseException;
-    @Nonnull
-    public abstract ResourceLocation getRegistryName();
 
     @Nonnull
-    Class<T> getClassType();
+    IVerifiable deserialize(CompoundNBT entity) throws NBTParseException;
+
+    @Nonnull
+    ResourceLocation getRegistryName();
 }

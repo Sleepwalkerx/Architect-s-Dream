@@ -12,6 +12,9 @@
     "architectsdream.blueprint.condition.defective" : "Defective Blueprint %s",
     "architectsdream.blueprint.condition.none" : "Empty Blueprint",
 
+    "architectsdream.blueprint.data_type.engine.name": "Engine",
+    "architectsdream.blueprint.data_type.palette_type.name": "Palette Type",
+
     "architectsdream.blueprint.properties.num_of_use" : "Number of uses: %d",
 
     "_" : "========================== Analysis ===========================",
@@ -44,6 +47,15 @@
     "screen.architectsdream.blueprint_creator.block_type.name": "Block type",
     "screen.architectsdream.blueprint_creator.block_type.consider_air.name": "Consider Air Block",
 
+    "_": "_________ Render Properties ________",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.name": "Render Prop.",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.title_pitch_lock": "Yaw Lock",
+    "screen.architectsdream.blueprint_creator.rend_prop.title_all_lock": "All Lock",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.reset.name": "Reset",
+
     "_": "________ Main Setting _________",
 
     "screen.architectsdream.blueprint_creator.main_setting.name": "Main setting",
@@ -56,8 +68,6 @@
     "screen.architectsdream.blueprint_creator.main_setting.title_file_format": "File Format",
     "screen.architectsdream.blueprint_creator.main_setting.title_num_of_use": "Number Of Use",
 
-    "screen.architectsdream.blueprint_creator.main_setting.tab.engine": "Engine",
-    "screen.architectsdream.blueprint_creator.main_setting.tab.palette_type": "Palette Type",
     "screen.architectsdream.blueprint_creator.main_setting.validator_mode.const": "Constant",
 
     "_" : "==================== Blueprint Viewer =====================",

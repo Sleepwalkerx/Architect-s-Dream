@@ -2,16 +2,10 @@ package sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.elemen
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
-import sleepwalker.architectsdream.client.gui.BaseGuiElement;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.ScreenBlueprintViewer;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.block.ModelBlock;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.BaseScrollItemElement;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.IScrollItemElement;
+import sleepwalker.architectsdream.client.gui.widget.BaseScrollItemElement;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.ScrollRect;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.window.WindowStructureViewer;
 

@@ -59,7 +59,7 @@ public class SimpleInfoGroup<T extends IScrollElement> extends BaseGuiElement im
     }
 
     @Override
-    public void init() {
+    public void build() {
 
     }
 

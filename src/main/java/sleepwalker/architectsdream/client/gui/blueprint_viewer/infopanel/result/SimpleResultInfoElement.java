@@ -22,7 +22,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.BaseScrollItemTooltips;
+import sleepwalker.architectsdream.client.gui.widget.BaseScrollItemTooltips;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -53,8 +53,8 @@ public class SimpleResultInfoElement extends BaseScrollItemTooltips {
     protected void genTooltips() {
 
         tooltips = getTooltipLines(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL)
-                .stream()
-                .map(component -> new Text(component, 0)).collect(Collectors.toList());
+            .stream()
+        .map(component -> new SimpleTooltipText(component.getString())).collect(Collectors.toList());
 
         tooltips.remove(0);
 

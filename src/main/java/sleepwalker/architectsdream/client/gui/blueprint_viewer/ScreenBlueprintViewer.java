@@ -20,7 +20,7 @@ import sleepwalker.architectsdream.client.ISavable;
 import sleepwalker.architectsdream.client.ISavableHandler;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.IInfoGroup;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.IModel;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.ITypeProvider;
+import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.IModelProvider;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.engine.IEngineProvider;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.SliderStructureViewer;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.window.WindowInfoPanel;
@@ -29,7 +29,6 @@ import sleepwalker.architectsdream.network.PacketBlueprintToServer;
 import sleepwalker.architectsdream.network.PacketHandler;
 import sleepwalker.architectsdream.serialize.engine.IEngineSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
-import sleepwalker.architectsdream.structure.container.IVerifiable;
 import sleepwalker.architectsdream.structure.validators.IValidator;
 
 import javax.annotation.Nonnull;
@@ -42,10 +41,10 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
 
 
    private static final ResourceLocation
-        background = new ResourceLocation(ArchitectsDream.MODID,"textures/gui/blueprint.png")
+           BACKGROUND = new ResourceLocation(ArchitectsDream.MODID,"textures/gui/blueprint.png")
    ;
 
-   public static final Map<Class<? extends IVerifiable>, ITypeProvider<?, ?>> MODEL_PROVIDERS = Maps.newHashMap();
+   public static final Map<ResourceLocation, IModelProvider> MODEL_PROVIDERS = Maps.newHashMap();
 
    public static final Map<IEngineSerializer<?>, IEngineProvider> ENGINES_PROVIDERS = Maps.newHashMap();
 
@@ -127,16 +126,9 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
 
       Blueprint.Structure structure = getMenu().blueprint.getStructure();
 
-      //ValidatorInfoGroup validatorsGroup = new ValidatorInfoGroup("validators");
-
-      structure.getBasePlacementData().getValidators().forEach((type, validators) -> {
-
-         ITypeProvider<?, ?> provider = MODEL_PROVIDERS.get(type);
-
-         if(provider != null) {
-            initType(provider, validators);
-         }
-      });
+      structure.getBasePlacementData().getValidators().forEach(
+           (type, validators) -> initType(MODEL_PROVIDERS.get(type), validators)
+      );
 
       ITextComponent rarityName = structure.getRarity().getDisplayName();
 
@@ -145,8 +137,6 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
       rarityColor = rarityName.getStyle().getColor() == null ? 0xffffff : rarityName.getStyle().getColor().getValue();
 
       initEngine(structure);
-
-      //infoPanel.addInfoGroup(validatorsGroup);
 
       structureViewer.commitModels();
    }
@@ -172,31 +162,32 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
       return super.mouseReleased(p_231048_1_, p_231048_3_, p_231048_5_);
    }
 
-   @SuppressWarnings("unchecked")
-   private <T extends IVerifiable, G extends IInfoGroup> void initType(
-        @Nonnull ITypeProvider<T, G> provider,
+   private void initType(
+        @Nonnull IModelProvider provider,
         @Nonnull Set<IValidator> set
-        //@Nonnull ValidatorInfoGroup validatorGroup
    ){
 
-      G typeGroup = provider.createTypeGroup();
+      List<IModel> models = new ArrayList<>();
 
       for(IValidator validator : set){
 
          validator.getEntities().forEach((blockPos, t) -> {
 
-            IModel model = provider.createModel((T) t, blockPos, validator, typeGroup);
+            IModel model = provider.createModel(t, blockPos);
 
-            structureViewer.addModel(model, blockPos);
+            models.add(model);
 
-            //validatorGroup.put(validator, model);
-
+            structureViewer.addModel(model);
          });
       }
 
-      if(typeGroup != null){
-         typeGroup.init();
-         infoPanel.addInfoGroup(typeGroup);
+      IInfoGroup group = provider.createGroup(models);
+
+      if(group != null){
+
+         group.build();
+
+         infoPanel.addInfoGroup(group);
       }
    }
 
@@ -227,8 +218,10 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
       savableObjects.clear();
 
       initWindow(structureViewer, leftPos + 113, topPos + 28, 192, 192);
+      structureViewer.init(getBlueprint().getRenderProperty());
 
-      initWindow(infoPanel,leftPos, topPos, width, height);
+      initWindow(infoPanel, leftPos, topPos, width, height);
+      infoPanel.init();
 
       structLevel = new SliderStructureViewer(structureViewer,
            leftPos + 315,
@@ -245,8 +238,6 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
    private void initWindow(@Nonnull IWindow window, int x, int y, int width, int height){
 
       window.initGuiElement(x, y, height, width);
-
-      window.init();
 
       children.add(window);
       windows.add(window);
@@ -333,7 +324,7 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
 
       RenderSystem.blendColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-      minecraft.getTextureManager().bind(background);
+      minecraft.getTextureManager().bind(BACKGROUND);
 
       blit(matrixStack, leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
    }

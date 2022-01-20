@@ -9,7 +9,5 @@ public interface IWindow extends IGuiElementEventListener {
 
     void setHighlight(boolean value);
 
-    void init();
-
     void renderLabel(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY);
 }

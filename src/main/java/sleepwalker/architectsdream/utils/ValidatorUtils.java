@@ -8,6 +8,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3i;
 import sleepwalker.architectsdream.math.UBlockPos;
@@ -60,9 +61,9 @@ public final class ValidatorUtils {
         BiFunction<UBlockPos, UVector3i, UBlockPos> function,
         BiFunction<IValidator, NonNullList<UBlockPos>, IValidator> cloneFunc
     ){
-        Map<Class<? extends IVerifiable>, Set<IValidator>> map = Maps.newHashMap();
+        Map<ResourceLocation, Set<IValidator>> map = Maps.newHashMap();
 
-        basePlacementData.getValidators().forEach((classIn, validators) -> {
+        basePlacementData.getValidators().forEach((id, validators) -> {
             Set<IValidator> set = Sets.newHashSet();
 
             validators.forEach(validator -> {
@@ -73,7 +74,7 @@ public final class ValidatorUtils {
                 set.add(cloneFunc.apply(validator, lReversePositions));
             });
 
-            map.put(classIn, set);
+            map.put(id, set);
         });
 
         return new PlacementData(map);

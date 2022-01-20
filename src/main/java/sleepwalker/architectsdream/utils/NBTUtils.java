@@ -27,6 +27,13 @@ public final class NBTUtils {
         else return defaultValue;
     }
 
+    public static float getFloat(@Nonnull CompoundNBT compoundNBT, String key, float defaultValue){
+        if(compoundNBT.contains(key, NBTTypes.FLOAT)){
+            return compoundNBT.getFloat(key);
+        }
+        else return defaultValue;
+    }
+
     public static <T extends Enum<T>> T getEnum(@Nonnull CompoundNBT compoundNBT, String key, Class<T> enumClass){
         return getEnum(compoundNBT, key, enumClass, null);
     }

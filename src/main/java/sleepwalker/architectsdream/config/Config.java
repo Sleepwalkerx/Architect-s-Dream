@@ -7,7 +7,8 @@ import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import sleepwalker.architectsdream.ArchitectsDream;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.ScreenBlueprintCreator.EnumFileFormat;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.ScreenBlueprintCreator.EnumFileFormat;
+import sleepwalker.architectsdream.structure.RenderProperty;
 
 public final class Config {
     private Config() { throw new IllegalStateException("Utility class"); }
@@ -26,6 +27,9 @@ public final class Config {
         public final BooleanValue duplicateRegID, considerAir;
         public final EnumValue<EnumFileFormat> fileFormat;
         public final BooleanValue translucentMesh;
+        public final BooleanValue lockAllTrans;
+        public final BooleanValue lockPitch;
+        public final ConfigValue<Float> x, y, pitch, yaw, zoom;
 
         public ClientConfig(ForgeConfigSpec.Builder builder){
             author = builder
@@ -53,6 +57,16 @@ public final class Config {
             translucentMesh = builder
                 .comment("If positive, then when the object is selected, the mesh will show through the blocks.")
             .define("translucentMesh", false);
+
+            lockPitch = builder.define("LockPitchRotation", true);
+
+            lockAllTrans = builder.define("LockAllMovement", true);
+
+            x = builder.define("x", RenderProperty.DEFAULT.getX());
+            y = builder.define("y", RenderProperty.DEFAULT.getY());
+            pitch = builder.define("pitch", RenderProperty.DEFAULT.getPitch());
+            yaw = builder.define("yaw", RenderProperty.DEFAULT.getYaw());
+            zoom = builder.define("zoom", RenderProperty.DEFAULT.getZoom());
         }
     }
 }

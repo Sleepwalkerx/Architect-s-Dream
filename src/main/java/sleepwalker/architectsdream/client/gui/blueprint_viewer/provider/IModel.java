@@ -13,13 +13,9 @@ public interface IModel extends IRenderable {
     @Nonnull
     UBlockPos getPos();
 
-    IValidator getValidator();
-
     boolean isVisible();
 
     void setVisible(boolean value);
-
-    IInfoElement getInfoElement();
 
     void showOnInfoPanel(WindowInfoPanel panel);
 }

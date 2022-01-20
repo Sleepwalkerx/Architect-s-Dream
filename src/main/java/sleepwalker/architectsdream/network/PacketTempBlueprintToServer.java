@@ -8,7 +8,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Hand;
 import net.minecraftforge.fml.network.NetworkEvent;
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.init.Items;
+import sleepwalker.architectsdream.utils.NBTTypes;
+
+import javax.annotation.Nonnull;
 
 public final class PacketTempBlueprintToServer {
 
@@ -20,36 +24,41 @@ public final class PacketTempBlueprintToServer {
         this.handIn = handIn;
     }
 
-    public static void writePacketData(PacketTempBlueprintToServer pTemplate, PacketBuffer buffer){
+    public static void writePacketData(@Nonnull PacketTempBlueprintToServer pTemplate, @Nonnull PacketBuffer buffer){
         buffer.writeNbt(pTemplate.compoundNBT);
         buffer.writeBoolean(pTemplate.handIn == Hand.MAIN_HAND);
     }
 
-    public static PacketTempBlueprintToServer readPacketData(PacketBuffer buffer){
+    @Nonnull
+    public static PacketTempBlueprintToServer readPacketData(@Nonnull PacketBuffer buffer){
         return new PacketTempBlueprintToServer(
             buffer.readNbt(),
             buffer.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND
         );
     }
 
-    public static void processPacket(PacketTempBlueprintToServer pTemplate, Supplier<NetworkEvent.Context> supplier) {
+    public static void processPacket(PacketTempBlueprintToServer pTemplate, @Nonnull Supplier<NetworkEvent.Context> supplier) {
 
         if(supplier.get().getDirection().getReceptionSide().isServer()){
             supplier.get().enqueueWork(() -> {
+
                 ServerPlayerEntity player = supplier.get().getSender();
 
-                ItemStack blueprint = player.getItemInHand(pTemplate.handIn);
+                if(player != null){
 
-                if(blueprint.getItem() == Items.BlueprintCreator.get()){
-                    CompoundNBT compoundNBT =  blueprint.getOrCreateTag();
+                    ItemStack blueprint = player.getItemInHand(pTemplate.handIn);
 
-                    for(String key : pTemplate.compoundNBT.getAllKeys()){
-                        compoundNBT.put(key, pTemplate.compoundNBT.get(key));
+                    if(blueprint.getItem() == Items.BlueprintCreator.get()){
+
+                        CompoundNBT compoundNBT = blueprint.getOrCreateTag();
+
+                        compoundNBT.merge(pTemplate.compoundNBT);
+
+                        //compoundNBT.putString(R.BlueprintCreator.CURRENT_SCREEN, pTemplate.compoundNBT.getString(R.BlueprintCreator.CURRENT_SCREEN));
+                        //compoundNBT.put(R.BlueprintCreator.SCREENS_DATA, pTemplate.compoundNBT.getList(R.BlueprintCreator.SCREENS_DATA, NBTTypes.OBJECT));
+
+                        blueprint.setTag(compoundNBT);
                     }
-
-                    compoundNBT.merge(pTemplate.compoundNBT);
-
-                    blueprint.setTag(compoundNBT);
                 }
             });
         }

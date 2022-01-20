@@ -102,7 +102,7 @@ public final class R {
         public static final ResourceLocation NAME = ArchitectsDream.namespace("engine_item_maker");
     }
 
-    public static class BlueprintTemplate {
+    public static class BlueprintCreator {
         public static final String
 
             REGISTRATION_ID = "temp_reg_id",
@@ -114,7 +114,8 @@ public final class R {
 
             POINTS_DATA = "temp_points",
 
-            SCREENS_DATA = "temp_screens_data",
+            CURRENT_SCREEN = "current_screen",
+            SCREENS_DATA = "screens_data",
             SCREEN_NAME = "name"
         ;
     }
@@ -128,10 +129,14 @@ public final class R {
     public static class RenderProperty {
         private RenderProperty(){}
         public static final String
-            NAME = "rend_prop",
             YAW = "yaw",
-            PITCH = "pitch"
+            PITCH = "pitch",
+            X = "x",
+            Y = "y",
+            ZOOM = "zoom"
         ;
+
+        public static final ResourceLocation NAME = ArchitectsDream.namespace("rend_prop");
     }
 
     public static class Blueprint {

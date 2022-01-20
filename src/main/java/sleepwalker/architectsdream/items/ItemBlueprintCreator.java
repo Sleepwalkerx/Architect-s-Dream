@@ -24,8 +24,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import sleepwalker.architectsdream.client.gui.blueprint_maker.ContainerBlueprintCreator;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.utils.ValidatorMode;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.ContainerBlueprintCreator;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.utils.ValidatorMode;
 import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.init.Items;
 import sleepwalker.architectsdream.utils.NBTTypes;
@@ -36,8 +36,8 @@ public class ItemBlueprintCreator extends Item {
     }
 
     @Override
-    public boolean canAttackBlock(BlockState p_195938_1_, World p_195938_2_, BlockPos p_195938_3_,
-            PlayerEntity p_195938_4_) {
+    public boolean canAttackBlock(@Nonnull BlockState blockState, @Nonnull World world, @Nonnull BlockPos blockPos,
+                                  @Nonnull PlayerEntity playerEntity) {
         return false;
     }
 
@@ -55,18 +55,18 @@ public class ItemBlueprintCreator extends Item {
 
         CompoundNBT itemStackNBT = itemStack.getOrCreateTag();
 
-        if(!itemStackNBT.contains(R.BlueprintTemplate.VALIDATOR_MODE, NBTTypes.STRING)){
-            itemStackNBT.putString(R.BlueprintTemplate.VALIDATOR_MODE, ValidatorMode.CONST.getRegistryName().toString());
+        if(!itemStackNBT.contains(R.BlueprintCreator.VALIDATOR_MODE, NBTTypes.STRING)){
+            itemStackNBT.putString(R.BlueprintCreator.VALIDATOR_MODE, ValidatorMode.CONST.getRegistryName().toString());
             activeMode = ValidatorMode.CONST;
         }
-        else activeMode = ValidatorMode.getValidator(new ResourceLocation(itemStackNBT.getString(R.BlueprintTemplate.VALIDATOR_MODE)));
+        else activeMode = ValidatorMode.getValidator(new ResourceLocation(itemStackNBT.getString(R.BlueprintCreator.VALIDATOR_MODE)));
 
         if(activeMode == null)
             return;
 
         String modeName = activeMode.getRegistryName().toString();
 
-        CompoundNBT pointsData = itemStackNBT.getCompound(R.BlueprintTemplate.POINTS_DATA);
+        CompoundNBT pointsData = itemStackNBT.getCompound(R.BlueprintCreator.POINTS_DATA);
 
         if(pointsData.contains(modeName, NBTTypes.INT_ARRAY)){
             int[] points = pointsData.getIntArray(modeName);
@@ -121,7 +121,7 @@ public class ItemBlueprintCreator extends Item {
             );
         }
 
-        itemStackNBT.put(R.BlueprintTemplate.POINTS_DATA, pointsData);
+        itemStackNBT.put(R.BlueprintCreator.POINTS_DATA, pointsData);
         itemStack.setTag(itemStackNBT);
     }
 
@@ -148,8 +148,9 @@ public class ItemBlueprintCreator extends Item {
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextComponent getName(ItemStack stack) {
-        if(stack.hasTag() && stack.getTag().contains(R.BlueprintTemplate.NAME, 8))
-            return new StringTextComponent(stack.getTag().getString(R.BlueprintTemplate.NAME));
+
+        if(stack.hasTag() && stack.getTag().contains(R.BlueprintCreator.NAME, NBTTypes.STRING))
+            return new StringTextComponent(stack.getTag().getString(R.BlueprintCreator.NAME));
         else 
             return super.getName(stack);
     }

@@ -5,16 +5,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.tuple.Pair;
 import sleepwalker.architectsdream.ArchitectsDream;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.ScreenBlueprintCreator;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.custom_screen.ScreenConstructor;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.custom_screen.ScreenPurpose;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.screens.engine.ScreenEngineItemMaker;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.screens.types.BlockTypeScreen;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.utils.ValidatorMode;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.ScreenBlueprintCreator;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.custom_screen.CustomScreenCreator;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.screens.StructureViewerScreen;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.screens.engine.ScreenEngineItemMaker;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.screens.types.BlockTypeScreen;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.utils.ValidatorMode;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.ScreenBlueprintViewer;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.IInfoGroup;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.ITypeProvider;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.block.BlockTypeProvider;
+import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.IModelProvider;
+import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.block.BlockModelProvider;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.engine.IEngineProvider;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.engine.ItemMakerProvider;
 import sleepwalker.architectsdream.R;
@@ -22,6 +21,7 @@ import sleepwalker.architectsdream.serialize.SerializerManager;
 import sleepwalker.architectsdream.serialize.engine.IEngineSerializer;
 import sleepwalker.architectsdream.serialize.type.IPaletteTypeSerializer;
 import sleepwalker.architectsdream.serialize.validator.IValidatorSerializer;
+import sleepwalker.architectsdream.structure.DataType;
 import sleepwalker.architectsdream.structure.container.IVerifiable;
 import sleepwalker.architectsdream.structure.engine.BaseStructureEngine;
 
@@ -45,9 +45,9 @@ public final class RegistryUtils {
 
         registryValidator(ValidatorMode.CONST);
 
-        registryPaletteType(R.BlockContainer.NAME, BlockTypeProvider.PROVIDER, ScreenPurpose.PALETTE_TYPE, BlockTypeScreen::new);
+        registryPaletteType(R.BlockContainer.NAME, BlockModelProvider.PROVIDER, BlockTypeScreen::new);
 
-        registryEngine(R.EngineItemMaker.NAME, ScreenPurpose.ENGINE, ScreenEngineItemMaker::new, new ItemMakerProvider());
+        registryEngine(R.EngineItemMaker.NAME, ItemMakerProvider.PROVIDER, ScreenEngineItemMaker::new);
     }
 
 
@@ -67,14 +67,13 @@ public final class RegistryUtils {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static <E extends IInfoGroup, T extends IVerifiable> void registryPaletteType(
+    public static void registryPaletteType(
         ResourceLocation name,
-        ITypeProvider<T, E> provider,
-        ScreenPurpose purpose,
-        ScreenConstructor screenConstructor
+        IModelProvider provider,
+        CustomScreenCreator screenConstructor
     ){
-        ScreenBlueprintCreator.REGISTRY.put(name, Pair.of(purpose, screenConstructor));
-        ScreenBlueprintViewer.MODEL_PROVIDERS.put(provider.getTypeClass(), provider);
+        ScreenBlueprintCreator.REGISTRY.put(name, Pair.of(DataType.PALETTE_TYPE, screenConstructor));
+        ScreenBlueprintViewer.MODEL_PROVIDERS.put(provider.getTypeName(), provider);
     }
 
     public static <T extends BaseStructureEngine> void registryEngine(IEngineSerializer<T> serializer){
@@ -82,8 +81,8 @@ public final class RegistryUtils {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void registryEngine(ResourceLocation name, ScreenPurpose purpose, ScreenConstructor constructor, IEngineProvider provider){
-        ScreenBlueprintCreator.REGISTRY.put(name, Pair.of(purpose, constructor));
+    public static void registryEngine(ResourceLocation name, IEngineProvider provider, CustomScreenCreator constructor){
+        ScreenBlueprintCreator.REGISTRY.put(name, Pair.of(DataType.ENGINE, constructor));
         ScreenBlueprintViewer.ENGINES_PROVIDERS.put(provider.getSerializer(), provider);
     }
 

@@ -12,6 +12,9 @@
     "architectsdream.blueprint.condition.defective" : "Поврежденный Чертёж %s",
     "architectsdream.blueprint.condition.none" : "Пустой Чертёж",
 
+    "architectsdream.blueprint.data_type.engine.name": "Движок",
+    "architectsdream.blueprint.data_type.palette_type.name": "Тип Палитры",
+
     "architectsdream.blueprint.properties.num_of_use" : "Число использований: %d",
 
     "_" : "========================== Analysis ===========================",
@@ -44,9 +47,18 @@
     "screen.architectsdream.blueprint_creator.block_type.name": "Блочный Тип",
     "screen.architectsdream.blueprint_creator.block_type.consider_air.name": "Учитывать блок воздуха",
 
+    "_": "_________ Render Properties ________",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.name": "Свойства ренд.",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.title_pitch_lock": "блок. yaw",
+    "screen.architectsdream.blueprint_creator.rend_prop.title_all_lock": "блок. всего",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.reset.name": "Сбросить",
+
     "_": "________ Main Setting _________",
 
-    "screen.architectsdream.blueprint_creator.main_setting.name": "Главные настройки",
+    "screen.architectsdream.blueprint_creator.main_setting.name": "Главные настр.",
 
     "screen.architectsdream.blueprint_creator.main_setting.title_reg_id": "Регистр. id",
     "screen.architectsdream.blueprint_creator.main_setting.title_name": "Имя",
@@ -56,9 +68,6 @@
     "screen.architectsdream.blueprint_creator.main_setting.title_file_format": "Формат файла",
     "screen.architectsdream.blueprint_creator.main_setting.title_num_of_use": "Количество использований",
 
-    "screen.architectsdream.blueprint_creator.main_setting.tab.engine": "Движок",
-    "screen.architectsdream.blueprint_creator.main_setting.tab.challenge": "Челленд",
-    "screen.architectsdream.blueprint_creator.main_setting.tab.palette_type": "Тип палитры",
     "screen.architectsdream.blueprint_creator.main_setting.validator_mode.const": "Постоянный",
 
     "_" : "==================== Blueprint Viewer =====================",

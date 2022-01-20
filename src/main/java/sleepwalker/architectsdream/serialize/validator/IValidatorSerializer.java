@@ -4,6 +4,7 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.math.UBlockPos;
 import sleepwalker.architectsdream.structure.container.IVerifiable;
 import sleepwalker.architectsdream.structure.validators.IValidator;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 public interface IValidatorSerializer {
 
     @Nullable
-    INBT serialize(@Nonnull Map<BlockPos, Integer> entities);
+    INBT serialize(@Nonnull Map<UBlockPos, Integer> entities);
 
     @Nonnull
     IValidator deserialize(@Nonnull INBT objectIn, @Nonnull List<IVerifiable> entities) throws NBTParseException;

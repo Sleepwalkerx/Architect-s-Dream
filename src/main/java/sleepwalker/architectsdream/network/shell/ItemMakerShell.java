@@ -2,10 +2,10 @@ package sleepwalker.architectsdream.network.shell;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
 import sleepwalker.architectsdream.structure.Blueprint;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemMakerShell extends BlueprintShell {

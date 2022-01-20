@@ -12,6 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import sleepwalker.architectsdream.client.gui.IDisplayName;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,10 @@ public class ButtonOption<T extends IDisplayName> extends AbstractButton {
     private int selectedValueIndex;
     private final FontRenderer fontRenderer;
 
-    public ButtonOption(int widthIn, int heightIn, int width, int height, String text, T startValue, List<T> values) {
+    @Nonnull
+    private OnPressed<T> pressed = buttonOption -> { };
+
+    public ButtonOption(int widthIn, int heightIn, int width, int height, String text, T startValue, @Nonnull List<T> values) {
         super(widthIn, heightIn, width, height, new StringTextComponent(text));
         this.selectedValueIndex = values.indexOf(startValue);
         selectedValue = startValue;
@@ -31,12 +35,16 @@ public class ButtonOption<T extends IDisplayName> extends AbstractButton {
         this.fontRenderer = Minecraft.getInstance().font;
     }
 
+    public void setPressed(@Nonnull OnPressed<T> pressed){
+        this.pressed = pressed;
+    }
+
     public ButtonOption(int widthIn, int heightIn, int width, int height, String text, T startValue, T[] values) {
         this(widthIn, heightIn ,width, height, text, startValue, Arrays.asList(values));
     }
 
     @Override
-    public void renderButton(MatrixStack matrixStack, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
+    public void renderButton(@Nonnull MatrixStack matrixStack, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bind(WIDGETS_LOCATION);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, this.alpha);
@@ -57,6 +65,11 @@ public class ButtonOption<T extends IDisplayName> extends AbstractButton {
         );
     }
 
+    @FunctionalInterface
+    public interface OnPressed<T extends IDisplayName> {
+        void onPressed(ButtonOption<T> buttonOption);
+    }
+
     public T getSelected(){
         return selectedValue;
     }
@@ -64,5 +77,7 @@ public class ButtonOption<T extends IDisplayName> extends AbstractButton {
     @Override
     public void onPress() {
         selectedValue = values.get(++selectedValueIndex % values.size());
+
+        pressed.onPressed(this);
     }
 }

@@ -15,7 +15,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
-version = '1.16.5-0.1.2-beta'
+version = '1.16.5-0.2.0-beta'
 group = 'com.sleepwalker.architectsdream'
 archivesBaseName = 'architectsdream'
 
@@ -81,27 +81,14 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name 'Jared maven'
-        url 'https://maven.blamejared.com'
-    }
-    maven {
-        name 'DVS1 Maven FS'
+        name 'JEI maven'
         url 'https://dvs1.progwml6.com/files/maven'
-    }
-    maven {
-        url 'https://www.cursemaven.com/'
-    }
-    maven {
-        name "tterrag maven"
-        url "https://maven.tterrag.com/"
     }
 }
 
 dependencies {
 
-    implementation 'org.jetbrains:annotations:20.1.0'
-
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.4'
 
     implementation fg.deobf("mezz.jei:jei-1.16.5:7.7.1.110")
 }

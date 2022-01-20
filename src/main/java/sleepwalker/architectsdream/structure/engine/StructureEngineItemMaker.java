@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.serialize.SerializerManager;
 import sleepwalker.architectsdream.serialize.engine.IEngineSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
@@ -14,6 +14,7 @@ import sleepwalker.architectsdream.structure.container.ContainerTypeBlock;
 import sleepwalker.architectsdream.structure.validators.IValidator;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class StructureEngineItemMaker extends BaseStructureEngine {
 
@@ -29,7 +30,7 @@ public class StructureEngineItemMaker extends BaseStructureEngine {
         if(itemContext.getPlayer() == null) return false;
 
         return dataIn.getValidators().entrySet().stream().allMatch(entry -> {
-            if (entry.getKey().isAssignableFrom(ContainerTypeBlock.class)) {
+            if (entry.getKey().equals(R.BlockContainer.NAME)) {
                 for (IValidator validator : entry.getValue()) {
                     for (BlockPos posIn : validator.getPositions())
                         if (!itemContext.getLevel().destroyBlock(itemContext.getClickedPos().subtract(shiftPos).offset(posIn), false))

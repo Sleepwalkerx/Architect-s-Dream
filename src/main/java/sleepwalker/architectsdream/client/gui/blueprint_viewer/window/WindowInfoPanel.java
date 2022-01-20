@@ -9,7 +9,6 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntNBT;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.Nullable;
 import sleepwalker.architectsdream.client.ISavable;
 import sleepwalker.architectsdream.client.gui.BaseGuiElement;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.IWindow;
@@ -20,6 +19,7 @@ import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.IScrollEl
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.ScrollRect;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +68,6 @@ public class WindowInfoPanel extends BaseGuiElement implements IWindow, INestedG
 
     }
 
-    @Override
     public void init() {
 
         ingredients.clear();
@@ -145,6 +144,7 @@ public class WindowInfoPanel extends BaseGuiElement implements IWindow, INestedG
     }
 
     private IGuiEventListener focused;
+
     @Nullable
     @Override
     public IGuiEventListener getFocused() {

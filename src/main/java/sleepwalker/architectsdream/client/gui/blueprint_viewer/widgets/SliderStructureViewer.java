@@ -5,12 +5,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.StringTextComponent;
-import org.jetbrains.annotations.Nullable;
 import sleepwalker.architectsdream.client.ISavable;
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.ScreenBlueprintViewer;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.window.WindowStructureViewer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class SliderStructureViewer extends AbstractSlider implements ISavable {
 

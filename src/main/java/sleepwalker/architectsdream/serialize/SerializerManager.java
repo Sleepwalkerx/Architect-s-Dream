@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraftforge.fml.common.thread.SidedThreadGroups;
 import org.apache.commons.lang3.tuple.Pair;
@@ -18,6 +17,7 @@ import sleepwalker.architectsdream.ArchitectsDream;
 import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.exseption.InitException;
 import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.math.UBlockPos;
 import sleepwalker.architectsdream.math.UVector3i;
 import sleepwalker.architectsdream.serialize.converters.EngineNBT;
 import sleepwalker.architectsdream.serialize.converters.EnumNBT;
@@ -112,7 +112,7 @@ public class SerializerManager {
 
         main.remove(STRUCTURE_RARITY);
 
-        Map<String, Pair<List<IVerifiable>, Class<? extends IVerifiable>>> palette = deserializePalette(main.getCompound(STRUCTURE_PALETTE));
+        Map<String, Pair<List<IVerifiable>, ResourceLocation>> palette = deserializePalette(main.getCompound(STRUCTURE_PALETTE));
 
         if(palette.isEmpty()){
             throw new InitException(String.format(R.Exception.CANNOT_EMPTY, "Palette"));
@@ -122,9 +122,13 @@ public class SerializerManager {
 
         if(Thread.currentThread().getThreadGroup() != SidedThreadGroups.SERVER){
 
-            if(main.contains(R.RenderProperty.NAME, NBTTypes.OBJECT)){
+            if(main.contains(R.RenderProperty.NAME.getPath(), NBTTypes.OBJECT)){
 
-                renderProperty = deserializeRend(main.getCompound(R.RenderProperty.NAME));
+                RenderProperty.Data data = RenderProperty.Data.create();
+
+                data.readData(main.getCompound(R.RenderProperty.NAME.getPath()));
+
+                renderProperty = data.build();
             }
         }
 
@@ -173,12 +177,17 @@ public class SerializerManager {
 
         structureFile.put(STRUCTURE_ENGINE, EngineNBT.serialize(template.engine));
 
-        if(template.properties != Blueprint.Properties.DEFAULT){
-            structureFile.put(R.Properties.NAME, BlueprintPropertiesSerializer.serialize(template.properties));
+        if(!template.rend_prop.build().equals(RenderProperty.DEFAULT)){
+
+            CompoundNBT compoundNBT = (CompoundNBT) template.rend_prop.saveData();
+
+            compoundNBT.remove(R.RenderProperty.ZOOM);
+
+            structureFile.put(R.RenderProperty.NAME.getPath(), compoundNBT);
         }
 
-        if(template.renderProperty != RenderProperty.DEFAULT){
-            structureFile.put(R.RenderProperty.NAME, serializeRend(template.renderProperty));
+        if(template.properties != Blueprint.Properties.DEFAULT){
+            structureFile.put(R.Properties.NAME, BlueprintPropertiesSerializer.serialize(template.properties));
         }
 
         if(!template.entities.isEmpty()){
@@ -198,29 +207,12 @@ public class SerializerManager {
     }
 
     @Nonnull
-    private static RenderProperty deserializeRend(@Nonnull CompoundNBT compoundNBT){
+    private static CompoundNBT serializeTypeValidators(@Nonnull Map<IValidatorSerializer, Map<UBlockPos, Integer>> validators){
 
-        return new RenderProperty(
-            compoundNBT.contains(R.RenderProperty.PITCH, NBTTypes.FLOAT) ? compoundNBT.getFloat(R.RenderProperty.PITCH) : RenderProperty.DEFAULT.getPitch(),
-           compoundNBT.contains(R.RenderProperty.YAW) ? compoundNBT.getFloat(R.RenderProperty.YAW) : RenderProperty.DEFAULT.getYaw()
-        );
-    }
-
-    @Nonnull
-    private static CompoundNBT serializeRend(@Nonnull RenderProperty property){
-
-        CompoundNBT compoundNBT = new CompoundNBT();
-
-        compoundNBT.putFloat(R.RenderProperty.PITCH, property.getPitch());
-        compoundNBT.putFloat(R.RenderProperty.YAW, property.getYaw());
-
-        return compoundNBT;
-    }
-
-    @Nonnull
-    private static CompoundNBT serializeTypeValidators(@Nonnull Map<IValidatorSerializer, Map<BlockPos, Integer>> validators){
         CompoundNBT validatorsNBT = new CompoundNBT();
+
         validators.forEach((serializer, map) -> {
+
             INBT nbt = serializer.serialize(map);
 
             if(nbt != null)
@@ -241,10 +233,11 @@ public class SerializerManager {
     }
 
     @Nonnull
-    private static PlacementData deserializeValidators(CompoundNBT validatorsNBT, Map<String, Pair<List<IVerifiable>, Class<? extends IVerifiable>>> palette){
-        Map<Class<? extends IVerifiable>, Set<IValidator>> validatorsMap = Maps.newHashMap();
+    private static PlacementData deserializeValidators(CompoundNBT validatorsNBT, Map<String, Pair<List<IVerifiable>, ResourceLocation>> palette){
 
-        for(Map.Entry<String, Pair<List<IVerifiable>, Class<? extends IVerifiable>>> entry : palette.entrySet()){
+        Map<ResourceLocation, Set<IValidator>> validatorsMap = Maps.newHashMap();
+
+        for(Map.Entry<String, Pair<List<IVerifiable>, ResourceLocation>> entry : palette.entrySet()){
             if(validatorsNBT.contains(entry.getKey(), NBTTypes.OBJECT)){
                 CompoundNBT validatorsEntity = validatorsNBT.getCompound(entry.getKey());
 
@@ -277,10 +270,12 @@ public class SerializerManager {
     }
 
     @Nonnull
-    private static Map<String, Pair<List<IVerifiable>, Class<? extends IVerifiable>>> deserializePalette(CompoundNBT paletteNBT){
-        Map<String, Pair<List<IVerifiable>, Class<? extends IVerifiable>>> palette = Maps.newHashMap();
+    private static Map<String, Pair<List<IVerifiable>, ResourceLocation>> deserializePalette(CompoundNBT paletteNBT){
+
+        Map<String, Pair<List<IVerifiable>, ResourceLocation>> palette = Maps.newHashMap();
 
         for(String key : paletteNBT.getAllKeys()){
+
             IPaletteTypeSerializer<?> serializer = TYPES.get(ArchitectsDream.location(key));
 
             if(serializer == null){
@@ -296,7 +291,7 @@ public class SerializerManager {
                     objects.add(serializer.deserialize(listNBT.getCompound(i)));
                 }
 
-                if(palette.put(key, Pair.of(objects, serializer.getClassType())) != null){
+                if(palette.put(key, Pair.of(objects, serializer.getRegistryName())) != null){
                     logger.error(String.format(R.Exception.DUPLICATE, key));
                 }
             }

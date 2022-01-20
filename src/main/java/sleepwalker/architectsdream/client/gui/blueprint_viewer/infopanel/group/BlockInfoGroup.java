@@ -1,18 +1,20 @@
 package sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.group;
 
-import sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.IInfoElement;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.elements.BlockInfoType;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.block.ModelBlock;
 
 import java.util.Optional;
 
+@OnlyIn(Dist.CLIENT)
 public class BlockInfoGroup extends SimpleInfoGroup<BlockInfoType> {
 
     public BlockInfoGroup(String name) {
         super(name);
     }
 
-    public IInfoElement addElement(ModelBlock modelBlock){
+    public void addElement(ModelBlock modelBlock){
 
         Optional<BlockInfoType> element = elements.stream()
             .filter(a -> a.getItemStack().getItem() == modelBlock.getItemStack().getItem())
@@ -21,21 +23,17 @@ public class BlockInfoGroup extends SimpleInfoGroup<BlockInfoType> {
         if(element.isPresent()){
 
             element.get().addElement(modelBlock);
-
-            return element.get();
         }
         else {
 
             BlockInfoType infoElement = new BlockInfoType(modelBlock);
 
             elements.add(infoElement);
-
-            return infoElement;
         }
     }
 
     @Override
-    public void init() {
+    public void build() {
         elements.forEach(BlockInfoType::createTooltip);
     }
 }

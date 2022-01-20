@@ -23,7 +23,7 @@ public class ValidatorSerialConst implements IValidatorSerializer {
 
     @Nullable
     @Override
-    public INBT serialize(@Nonnull Map<BlockPos, Integer> entities) {
+    public INBT serialize(@Nonnull Map<UBlockPos, Integer> entities) {
         ListNBT listNBT = new ListNBT();
 
         entities.forEach((blockPos, index) -> {

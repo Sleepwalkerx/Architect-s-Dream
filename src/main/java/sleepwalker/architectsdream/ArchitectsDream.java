@@ -21,8 +21,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import sleepwalker.architectsdream.client.gui.BlueprintOverlayGui;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.ScreenBlueprintCreator;
-import sleepwalker.architectsdream.client.gui.blueprint_maker.utils.WorldRenderer;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.ScreenBlueprintCreator;
+import sleepwalker.architectsdream.client.gui.blueprint_creator.utils.WorldRenderer;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.ScreenBlueprintViewer;
 import sleepwalker.architectsdream.client.resources.ShellManager;
 import sleepwalker.architectsdream.config.Config;
@@ -34,7 +34,6 @@ import sleepwalker.architectsdream.listeners.PlayerEventListener;
 import sleepwalker.architectsdream.network.PacketHandler;
 import sleepwalker.architectsdream.resources.BlueprintManager;
 import sleepwalker.architectsdream.structure.Blueprint;
-import sleepwalker.architectsdream.structure.EnumCondition;
 import sleepwalker.architectsdream.utils.BlueprintUtils;
 import sleepwalker.architectsdream.utils.RegistryUtils;
 

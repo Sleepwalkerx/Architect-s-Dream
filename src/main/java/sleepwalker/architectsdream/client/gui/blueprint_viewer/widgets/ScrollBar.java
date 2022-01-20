@@ -7,7 +7,6 @@ import net.minecraft.nbt.FloatNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.Nullable;
 import sleepwalker.architectsdream.client.ISavable;
 import sleepwalker.architectsdream.client.gui.BaseGuiElement;
 import sleepwalker.architectsdream.client.gui.IGuiElement;
@@ -15,6 +14,7 @@ import sleepwalker.architectsdream.client.gui.IGuiElementEventListener;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.ScreenBlueprintViewer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class ScrollBar extends BaseGuiElement implements ISavable, IGuiElementEventListener {
 

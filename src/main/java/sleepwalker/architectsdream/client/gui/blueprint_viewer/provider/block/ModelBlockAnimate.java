@@ -16,8 +16,8 @@ import javax.annotation.Nonnull;
 public class ModelBlockAnimate extends ModelBlock {
 
     private final float angel;
-    protected ModelBlockAnimate(IValidator validator, UBlockPos pos, ContainerTypeBlock entity) {
-        super(validator, pos, entity);
+    protected ModelBlockAnimate(UBlockPos pos, ContainerTypeBlock entity) {
+        super(pos, entity);
 
         if(state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)){
 

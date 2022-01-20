@@ -4,14 +4,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
 import java.util.Map;
 
 public interface ISavableHandler {
 
     String COMPOUND_SAVABLE = "savable_objects";
 
-    default void readSavableObjects(CompoundNBT orig){
+    default void readSavableObjects(@Nonnull CompoundNBT orig){
 
         CompoundNBT nbt = orig.getCompound(COMPOUND_SAVABLE);
 
@@ -23,7 +22,7 @@ public interface ISavableHandler {
     }
 
     @Nonnull
-    default CompoundNBT saveSavableObjects(CompoundNBT orig){
+    default CompoundNBT saveSavableObjects(@Nonnull CompoundNBT orig){
 
         CompoundNBT nbt = orig.getCompound(COMPOUND_SAVABLE);
 

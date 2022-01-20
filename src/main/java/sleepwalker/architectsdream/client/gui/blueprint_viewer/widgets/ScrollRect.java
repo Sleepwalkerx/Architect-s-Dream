@@ -9,7 +9,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 import sleepwalker.architectsdream.ArchitectsDream;
 import sleepwalker.architectsdream.client.gui.BaseGuiElement;
@@ -19,6 +18,7 @@ import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.utils.RenderUtils;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 

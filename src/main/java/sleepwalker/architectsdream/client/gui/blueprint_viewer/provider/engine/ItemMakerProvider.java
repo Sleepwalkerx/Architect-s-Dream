@@ -8,6 +8,8 @@ import sleepwalker.architectsdream.structure.engine.StructureEngineItemMaker;
 
 public class ItemMakerProvider implements IEngineProvider {
 
+    public static final ItemMakerProvider PROVIDER = new ItemMakerProvider();
+
     @Override
     public void create() {
 

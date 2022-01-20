@@ -171,10 +171,4 @@ public class PaletteTypeSerialBlock implements IPaletteTypeSerializer<ContainerT
     public ResourceLocation getRegistryName() {
         return R.BlockContainer.NAME;
     }
-
-    @Nonnull
-    @Override
-    public Class<ContainerTypeBlock> getClassType() {
-        return ContainerTypeBlock.class;
-    }
 }
