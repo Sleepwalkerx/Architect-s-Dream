@@ -4,7 +4,7 @@ import net.minecraft.nbt.CompoundNBT;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sleepwalker.architectsdream.ArchitectsDream;
-import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.exception.NBTParseException;
 import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.serialize.SerializerManager;
 import sleepwalker.architectsdream.serialize.engine.IEngineSerializer;

@@ -13,7 +13,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sleepwalker.architectsdream.ArchitectsDream;
-import sleepwalker.architectsdream.exseption.InitException;
+import sleepwalker.architectsdream.exception.InitException;
 import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.serialize.SerializerManager;
 import sleepwalker.architectsdream.structure.Blueprint;

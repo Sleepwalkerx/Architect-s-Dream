@@ -2,7 +2,7 @@ package sleepwalker.architectsdream.serialize.type;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
-import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.exception.NBTParseException;
 import sleepwalker.architectsdream.structure.container.IVerifiable;
 
 import javax.annotation.Nonnull;
