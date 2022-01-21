@@ -25,8 +25,10 @@ import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.engine.I
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.widgets.SliderStructureViewer;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.window.WindowInfoPanel;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.window.WindowStructureViewer;
+import sleepwalker.architectsdream.client.resources.ShellManager;
 import sleepwalker.architectsdream.network.PacketBlueprintToServer;
 import sleepwalker.architectsdream.network.PacketHandler;
+import sleepwalker.architectsdream.network.shell.BlueprintShell;
 import sleepwalker.architectsdream.serialize.engine.IEngineSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.validators.IValidator;
@@ -130,7 +132,9 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
            (type, validators) -> initType(MODEL_PROVIDERS.get(type), validators)
       );
 
-      ITextComponent rarityName = structure.getRarity().getDisplayName();
+      BlueprintShell shell = ShellManager.getClientStorage().get(getMenu().blueprint.getID());
+
+      ITextComponent rarityName = shell != null ? shell.getRarity().getDisplayName(): structure.getRarity().getDisplayName();
 
       this.rarityName = rarityName.getString();
 

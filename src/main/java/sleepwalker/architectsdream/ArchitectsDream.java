@@ -30,6 +30,7 @@ import sleepwalker.architectsdream.init.Containers;
 import sleepwalker.architectsdream.init.Items;
 import sleepwalker.architectsdream.items.ItemBlueprint;
 import sleepwalker.architectsdream.items.ItemBlueprintCreator;
+import sleepwalker.architectsdream.listeners.PlayerClientEventListener;
 import sleepwalker.architectsdream.listeners.PlayerEventListener;
 import sleepwalker.architectsdream.network.PacketHandler;
 import sleepwalker.architectsdream.resources.BlueprintManager;
@@ -88,7 +89,6 @@ public final class ArchitectsDream {
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, this::addReloadListeners);
 
         MinecraftForge.EVENT_BUS.register(PlayerEventListener.class);
-
     }
 
     private void addReloadListeners(@Nonnull final AddReloadListenerEvent event){
@@ -104,7 +104,6 @@ public final class ArchitectsDream {
 
         RegistryUtils.initCommon();
         PacketHandler.init();
-
     }
 
     @Nonnull
@@ -119,8 +118,11 @@ public final class ArchitectsDream {
 
     private void clientRegistry(@Nonnull final FMLClientSetupEvent event){
 
+        ModStates.loadClient();
+
         MinecraftForge.EVENT_BUS.register(new WorldRenderer(Minecraft.getInstance()));
         MinecraftForge.EVENT_BUS.register(new BlueprintOverlayGui());
+        MinecraftForge.EVENT_BUS.register(PlayerClientEventListener.class);
 
         ScreenManager.register(Containers.TypeBlueprintMaker.get(), ScreenBlueprintCreator::new);
         ScreenManager.register(Containers.TypeBlueprint.get(), ScreenBlueprintViewer::new);

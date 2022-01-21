@@ -19,18 +19,19 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 import sleepwalker.architectsdream.ArchitectsDream;
+import sleepwalker.architectsdream.client.resources.ShellManager;
 import sleepwalker.architectsdream.events.BlueprintsLoadEvent;
 import sleepwalker.architectsdream.init.Items;
+import sleepwalker.architectsdream.network.shell.BlueprintShell;
 import sleepwalker.architectsdream.network.shell.ItemMakerShell;
-import sleepwalker.architectsdream.structure.EnumCondition;
 import sleepwalker.architectsdream.utils.BlueprintUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +52,9 @@ public class JeiSleepPlugin implements IModPlugin {
 
         runtime = jeiRuntime;
 
-        MinecraftForge.EVENT_BUS.register(JeiSleepPlugin.class);
+        if(!ShellManager.getClientStorage().isEmpty()){
+            loadBlueprints(ShellManager.getClientStorage().values());
+        }
     }
 
     @Override
@@ -68,7 +71,14 @@ public class JeiSleepPlugin implements IModPlugin {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void onBlueprintsLoad(@Nonnull BlueprintsLoadEvent event){
+    public static void onBlueprintsLoadEvent(@Nonnull BlueprintsLoadEvent event) {
+
+        if(runtime != null){
+            loadBlueprints(event.getShells());
+        }
+    }
+
+    public static void loadBlueprints(@Nonnull Collection<BlueprintShell> shells){
 
         ITextComponent[] iTextComponents = new ITextComponent[3];
 
@@ -76,9 +86,9 @@ public class JeiSleepPlugin implements IModPlugin {
         iTextComponents[1] = new TranslationTextComponent("gui.jei.blueprint_info_2");
         iTextComponents[2] = new TranslationTextComponent("gui.jei.blueprint_info_3");
 
-        List<ItemStack> items = new ArrayList<>(event.getShells().size());
+        List<ItemStack> items = new ArrayList<>(shells.size());
 
-        event.getShells().forEach(structureShell -> {
+        shells.forEach(structureShell -> {
 
             ItemStack stack = BlueprintUtils.setBlueprintToItem(structureShell.getId());
 
