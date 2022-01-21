@@ -15,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.exception.NBTParseException;
 import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.structure.container.ContainerTypeBlock;
 import sleepwalker.architectsdream.structure.container.IVerifiable;

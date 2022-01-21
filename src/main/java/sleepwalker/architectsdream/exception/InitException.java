@@ -1,4 +1,4 @@
-package sleepwalker.architectsdream.exseption;
+package sleepwalker.architectsdream.exception;
 
 public class InitException extends RuntimeException {
 

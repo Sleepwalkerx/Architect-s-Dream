@@ -11,7 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import sleepwalker.architectsdream.network.shell.BlueprintShell;
 import sleepwalker.architectsdream.network.shell.ItemMakerShell;
 import sleepwalker.architectsdream.R;
-import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.exception.NBTParseException;
 import sleepwalker.architectsdream.serialize.converters.BlueprintPropertiesSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.engine.StructureEngineItemMaker;

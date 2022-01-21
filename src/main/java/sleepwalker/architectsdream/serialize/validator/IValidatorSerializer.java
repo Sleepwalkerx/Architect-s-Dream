@@ -2,8 +2,7 @@ package sleepwalker.architectsdream.serialize.validator;
 
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.exception.NBTParseException;
 import sleepwalker.architectsdream.math.UBlockPos;
 import sleepwalker.architectsdream.structure.container.IVerifiable;
 import sleepwalker.architectsdream.structure.validators.IValidator;

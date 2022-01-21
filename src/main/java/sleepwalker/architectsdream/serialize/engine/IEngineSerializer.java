@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import sleepwalker.architectsdream.exseption.NBTParseException;
+import sleepwalker.architectsdream.exception.NBTParseException;
 import sleepwalker.architectsdream.network.shell.BlueprintShell;
 import sleepwalker.architectsdream.serialize.converters.BlueprintPropertiesSerializer;
 import sleepwalker.architectsdream.structure.Blueprint;
