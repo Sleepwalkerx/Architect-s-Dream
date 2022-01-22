@@ -5,9 +5,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.tuple.Pair;
 import sleepwalker.architectsdream.ArchitectsDream;
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.ScreenBlueprintCreator;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.custom_screen.CustomScreenCreator;
-import sleepwalker.architectsdream.client.gui.blueprint_creator.screens.StructureViewerScreen;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.screens.engine.ScreenEngineItemMaker;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.screens.types.BlockTypeScreen;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.utils.ValidatorMode;
@@ -16,11 +16,9 @@ import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.IModelPr
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.block.BlockModelProvider;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.engine.IEngineProvider;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.engine.ItemMakerProvider;
-import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.serialize.SerializerManager;
 import sleepwalker.architectsdream.serialize.engine.IEngineSerializer;
 import sleepwalker.architectsdream.serialize.type.IPaletteTypeSerializer;
-import sleepwalker.architectsdream.serialize.validator.IValidatorSerializer;
 import sleepwalker.architectsdream.structure.DataType;
 import sleepwalker.architectsdream.structure.container.IVerifiable;
 import sleepwalker.architectsdream.structure.engine.BaseStructureEngine;
@@ -33,7 +31,7 @@ public final class RegistryUtils {
 
     public static void initCommon() {
 
-        registryValidator(SerializerManager.VALIDATOR_CONST);
+        registryValidator(ValidatorMode.CONST);
 
         registryPaletteType(SerializerManager.TYPE_BLOCK);
 
@@ -43,8 +41,6 @@ public final class RegistryUtils {
     @OnlyIn(Dist.CLIENT)
     public static void initClient(){
 
-        registryValidator(ValidatorMode.CONST);
-
         registryPaletteType(R.BlockContainer.NAME, BlockModelProvider.PROVIDER, BlockTypeScreen::new);
 
         registryEngine(R.EngineItemMaker.NAME, ItemMakerProvider.PROVIDER, ScreenEngineItemMaker::new);
@@ -53,12 +49,8 @@ public final class RegistryUtils {
 
 
     // ====================
-    public static void registryValidator(IValidatorSerializer serializer){
-        SerializerManager.VALIDATORS.put(serializer.getRegistryName(), serializer);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void registryValidator(ValidatorMode validatorMode){
+    public static void registryValidator(@Nonnull ValidatorMode validatorMode){
+        SerializerManager.VALIDATORS.put(validatorMode.getRegistryName(), validatorMode.getSerializer());
         ValidatorMode.addValidator(validatorMode.getRegistryName(), validatorMode);
     }
 

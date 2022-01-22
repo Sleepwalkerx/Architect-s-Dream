@@ -17,7 +17,6 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Map;
 
-@OnlyIn(Dist.CLIENT)
 public final class ValidatorMode implements IDisplayName {
     public static final ValidatorMode CONST = new ValidatorMode(0.5f, 0.7f, 1.0f, SerializerManager.VALIDATOR_CONST);
 

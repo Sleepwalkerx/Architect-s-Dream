@@ -59,7 +59,10 @@ public class ItemBlueprintCreator extends Item {
             itemStackNBT.putString(R.BlueprintCreator.VALIDATOR_MODE, ValidatorMode.CONST.getRegistryName().toString());
             activeMode = ValidatorMode.CONST;
         }
-        else activeMode = ValidatorMode.getValidator(new ResourceLocation(itemStackNBT.getString(R.BlueprintCreator.VALIDATOR_MODE)));
+        else {
+
+            activeMode = ValidatorMode.getValidator(new ResourceLocation(itemStackNBT.getString(R.BlueprintCreator.VALIDATOR_MODE)));
+        }
 
         if(activeMode == null)
             return;
@@ -84,9 +87,10 @@ public class ItemBlueprintCreator extends Item {
                 );
             }
             else {
-                boolean is = pos.distSqr(points[0], points[1], points[2], true) > pos.distSqr(points[3], points[4], points[5], true);
-                if(Screen.hasAltDown()) is = !is;
-                if(is){
+
+                boolean switchPoint = itemStackNBT.getBoolean(R.BlueprintCreator.SWITCH_POINT);
+
+                if(switchPoint){
                     pointsData.putIntArray(
                         modeName,
                         new int[] { 
@@ -112,6 +116,8 @@ public class ItemBlueprintCreator extends Item {
                         }
                     );
                 }
+
+                itemStackNBT.putBoolean(R.BlueprintCreator.SWITCH_POINT, !switchPoint);
             }
         }
         else {

@@ -100,7 +100,6 @@ public final class ArchitectsDream {
         ModStates.check();
 
         MinecraftForge.EVENT_BUS.register(ItemBlueprintCreator.class);
-        MinecraftForge.EVENT_BUS.register(ItemBlueprint.class);
 
         RegistryUtils.initCommon();
         PacketHandler.init();

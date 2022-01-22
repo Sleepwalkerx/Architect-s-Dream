@@ -11,6 +11,6 @@ public class PlayerClientEventListener {
 
     @SubscribeEvent
     public static void onPlayerOut(ClientPlayerNetworkEvent.LoggedOutEvent event){
-        ShellManager.getClientStorage().clear();
+        ShellManager.clearStorage();
     }
 }

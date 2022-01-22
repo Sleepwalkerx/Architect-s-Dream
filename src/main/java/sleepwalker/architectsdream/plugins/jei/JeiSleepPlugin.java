@@ -52,7 +52,7 @@ public class JeiSleepPlugin implements IModPlugin {
 
         runtime = jeiRuntime;
 
-        if(!ShellManager.getClientStorage().isEmpty()){
+        if(ShellManager.isLoad){
             loadBlueprints(ShellManager.getClientStorage().values());
         }
     }

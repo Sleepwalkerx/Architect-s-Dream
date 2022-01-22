@@ -24,6 +24,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.utils.FileStructureCreator.PointTemplateData;
 import sleepwalker.architectsdream.config.Config;
 import sleepwalker.architectsdream.init.Items;
@@ -74,9 +75,6 @@ public class WorldRenderer {
             );
         }
 
-        //matrixStack.pop();
-        
-        //RenderSystem.disableDepthTest();
         buffer.endBatch(RenderType.LINES);
     }
 
@@ -89,6 +87,7 @@ public class WorldRenderer {
     }
 
     private void updateCache(){
+
         ItemStack btemplate;
 
         if(mc.player.getMainHandItem().getItem() == Items.BlueprintCreator.get()){
@@ -103,21 +102,40 @@ public class WorldRenderer {
             return;
         }
 
+        if(btemplate.getTag() == null){
+            return;
+        }
+
         List<PointTemplateData> newData = FileStructureCreator.getPointTemplateData(btemplate.getTag());
+
         if(!newData.equals(points)){
-            cachePoints = buildVoxelShapes(newData);
+            cachePoints = buildVoxelShapes(newData, btemplate.getTag().getBoolean(R.BlueprintCreator.SWITCH_POINT));
             points = newData;
         }
     }
 
-    private List<VisualCube> buildVoxelShapes(List<PointTemplateData> listData){
+    @Nonnull
+    private List<VisualCube> buildVoxelShapes(@Nonnull List<PointTemplateData> listData, boolean switchPoint){
+
         List<VisualCube> list = Lists.newArrayList();
 
         for(PointTemplateData pointData : listData){
-            list.add(new VisualCube(VoxelShapes.block(), pointData.getColorR(), pointData.getColorG(), pointData.getColorB(), pointData.getMax()));
+
+            if(!switchPoint){
+                list.add(new VisualCube(VoxelShapes.block(), pointData.getColorR(), pointData.getColorG(), pointData.getColorB(), pointData.getMax()));
+            }
+            else {
+                list.add(new VisualCube(VoxelShapes.block(), 0.87f, 0.0f, 0.32f, pointData.getMax()));
+            }
 
             if(pointData.getMin() != BlockPos.ZERO){
-                list.add(new VisualCube(VoxelShapes.block(), pointData.getColorR(), pointData.getColorG(), pointData.getColorB(), pointData.getMin()));
+
+                if(switchPoint){
+                    list.add(new VisualCube(VoxelShapes.block(), pointData.getColorR(), pointData.getColorG(), pointData.getColorB(), pointData.getMin()));
+                }
+                else {
+                    list.add(new VisualCube(VoxelShapes.block(), 0.87f, 0.0f, 0.32f, pointData.getMin()));
+                }
 
                 list.add(new VisualCube(
                     VoxelShapes.create(new AxisAlignedBB(

@@ -129,6 +129,7 @@ public class FileStructureCreator {
     }
 
     public static List<PointTemplateData> getPointTemplateData(CompoundNBT tag){
+
         if(tag != null && tag.contains(R.BlueprintCreator.POINTS_DATA, NBTTypes.OBJECT)){
             List<PointTemplateData> data = Lists.newArrayList();
             tag = tag.getCompound(R.BlueprintCreator.POINTS_DATA);

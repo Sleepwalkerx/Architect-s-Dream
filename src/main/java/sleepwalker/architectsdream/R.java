@@ -113,6 +113,7 @@ public final class R {
             FILE_FORMAT = "temp_file_format",
 
             POINTS_DATA = "temp_points",
+            SWITCH_POINT = "switch_point",
 
             CURRENT_SCREEN = "current_screen",
             SCREENS_DATA = "screens_data",

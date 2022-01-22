@@ -56,7 +56,7 @@ public class BlockTypeProvider implements ITypeProvider<ContainerTypeBlock, Bloc
 
         if(blockstate.getRenderShape() == BlockRenderType.INVISIBLE && blockstate.getBlock() instanceof ContainerBlock){
 
-            block = new ModelBlockAnimate(validator, pos, entity);
+            block = new ModelBlockAnimate(pos, entity);
         }
         else if(blockstate.getRenderShape() == BlockRenderType.ENTITYBLOCK_ANIMATED && blockstate.hasProperty(BlockStateProperties.HORIZONTAL_FACING)){
 
@@ -64,14 +64,12 @@ public class BlockTypeProvider implements ITypeProvider<ContainerTypeBlock, Bloc
                 return EmptyModel.EMPTY;
             }
 
-            block = new ModelBlockAnimate(validator, pos, entity);
+            block = new ModelBlockAnimate(pos, entity);
         }
         else {
 
-            block = new ModelBlock(validator, pos, entity);
+            block = new ModelBlock(pos, entity);
         }
-
-        block.setInfoElement(group.addElement(block));
 
         return block;
     }
