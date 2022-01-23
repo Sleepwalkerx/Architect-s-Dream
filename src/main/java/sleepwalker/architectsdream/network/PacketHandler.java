@@ -50,6 +50,13 @@ public final class PacketHandler {
         );
 
         INSTANCE.registerMessage(
+            id++, PacketBlueprintCreatorPointToServer.class,
+            PacketBlueprintCreatorPointToServer::writePacketData,
+            PacketBlueprintCreatorPointToServer::readPacketData,
+            PacketBlueprintCreatorPointToServer::processPacket
+        );
+
+        INSTANCE.registerMessage(
             id++, PacketStorageBlueprintsToClient.class,
             PacketStorageBlueprintsToClient::writePacketData,
             PacketStorageBlueprintsToClient::readPacketData,

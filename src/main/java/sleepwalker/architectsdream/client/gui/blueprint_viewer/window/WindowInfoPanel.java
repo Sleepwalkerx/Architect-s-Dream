@@ -113,6 +113,13 @@ public class WindowInfoPanel extends BaseGuiElement implements IWindow, INestedG
         drawStringScroll(matrixStack, resultPanel);
     }
 
+    public void renderTooltips(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float tick){
+
+        ingredients.renderTooltips(matrixStack, mouseX, mouseY, tick);
+        entityInfo.renderTooltips(matrixStack, mouseX, mouseY, tick);
+        resultPanel.renderTooltips(matrixStack, mouseX, mouseY, tick);
+    }
+
     private void drawStringScroll(@Nonnull MatrixStack matrixStack, @Nonnull ScrollRect rect){
         drawStringCenter(matrixStack, rect.getPosX() - viewer.getGuiLeft() + (rect.getWidth() / 2f), rect.getPosY() - viewer.getGuiTop() - font.lineHeight - 2, rect);
     }

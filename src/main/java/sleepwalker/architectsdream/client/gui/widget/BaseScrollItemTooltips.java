@@ -52,10 +52,6 @@ public abstract class BaseScrollItemTooltips extends BaseScrollItemElement {
 
         private final int color;
 
-        public SimpleTooltipText(@Nonnull String text){
-            this(text, 0);
-        }
-
         public SimpleTooltipText(@Nonnull String text, int localPosX){
             this(text, localPosX, 0xffffff);
         }

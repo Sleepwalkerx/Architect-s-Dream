@@ -1,9 +1,12 @@
 package sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.elements;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.Property;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import sleepwalker.architectsdream.R;
+import sleepwalker.architectsdream.client.gui.blueprint_viewer.ScreenBlueprintViewer;
 import sleepwalker.architectsdream.client.gui.widget.BaseScrollItemTooltips;
 import sleepwalker.architectsdream.structure.container.ContainerTypeBlock;
 
@@ -32,7 +35,7 @@ public class BlockInfoElement extends BaseScrollItemTooltips {
 
         if(container.getTags() != null){
 
-            tooltips.add(new SimpleTooltipText("Block Tag:", TextFormatting.YELLOW));
+            tooltips.add(new SimpleTooltipText(i18n("block_tags_list.name") + ":", TextFormatting.YELLOW));
 
             container.getTags().getTags().forEach((name, tag) ->
                 tooltips.add(new SimpleTooltipText(name.toString(), 5, TextFormatting.WHITE))
@@ -41,7 +44,7 @@ public class BlockInfoElement extends BaseScrollItemTooltips {
 
         if(container.isHasProperties()){
 
-            tooltips.add(new SimpleTooltipText("Block Properties:", TextFormatting.YELLOW));
+            tooltips.add(new SimpleTooltipText(i18n("block_properties_list.name") + ":", TextFormatting.YELLOW));
 
             if(container.getBlockState() != null){
 
@@ -56,6 +59,11 @@ public class BlockInfoElement extends BaseScrollItemTooltips {
         }
 
         calcHeight();
+    }
+
+    @Nonnull
+    private String i18n(@Nonnull String name){
+        return ScreenBlueprintViewer.screenI18n(R.BlockContainer.NAME.getPath(), name);
     }
 
     public boolean add(ContainerTypeBlock block){

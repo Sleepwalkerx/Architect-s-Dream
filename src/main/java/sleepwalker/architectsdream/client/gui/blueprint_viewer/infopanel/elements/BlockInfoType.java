@@ -2,7 +2,13 @@ package sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.elemen
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.opengl.GL11;
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.ScreenBlueprintViewer;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.provider.block.ModelBlock;
 import sleepwalker.architectsdream.client.gui.widget.BaseScrollItemElement;
@@ -55,17 +61,22 @@ public class BlockInfoType extends BaseScrollItemElement {
 
     public void createTooltip(){
 
-        list.add(Pair.of(itemStack.getHoverName().getString(), 0xFFFFFF));
+        list.add(Pair.of(hoverName, 0xFFFFFF));
 
         if(elements.stream().anyMatch(e -> e.getContainer().getTags() != null)){
 
-            list.add(Pair.of("* has tags", 0xfdf401));
+            list.add(Pair.of("* " + i18n("has_tags.name"), 0xfdf401));
         }
 
         if(elements.stream().anyMatch(e -> e.getContainer().isHasProperties())){
 
-            list.add(Pair.of("* has properties", 0xfdf401));
+            list.add(Pair.of("* " + i18n("has_properties.name"), 0xfdf401));
         }
+    }
+
+    @Nonnull
+    private String i18n(@Nonnull String name){
+        return ScreenBlueprintViewer.screenI18n(R.BlockContainer.NAME.getPath(), name);
     }
 
     @Override

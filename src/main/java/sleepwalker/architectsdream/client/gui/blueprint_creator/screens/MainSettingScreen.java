@@ -121,7 +121,6 @@ public class MainSettingScreen extends BaseCustomScreen {
             100, 12, new StringTextComponent("name")
         );
         nameField.setTextColor(-1);
-        nameField.setFilter(str -> str.matches("[\\s\\w]*"));
         nameField.setResponder(name -> {
 
             cacheName = name;

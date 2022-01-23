@@ -81,9 +81,27 @@
     "screen.architectsdream.blueprint_viewer.blueprint_rarity.name" : "Редкость",
     "screen.architectsdream.blueprint_viewer.blueprint_engine_type.name" : "Тип",
 
+    "screen.architectsdream.blueprint_viewer.jei_item_tooltip" : "Нажмите, чтобы открыть рецепт",
+
+    "_": "############## Engines #################",
+
+    "_": " _________ Engine Item Maker __________",
+
     "screen.architectsdream.blueprint_viewer.engine_type_do.engine_item_maker.name" : "Создает предметы",
 
+    "_": "_________ Default Engine __________",
+
     "screen.architectsdream.blueprint_viewer.engine_type_do.default.name" : "Никакой",
+
+    "_": "############ Palette Types ###########",
+
+    "_": " _________ Type Block __________",
+
+    "screen.architectsdream.blueprint_viewer.block_type.has_tags.name" : "может быть заменён",
+    "screen.architectsdream.blueprint_viewer.block_type.has_properties.name" : "имеет свойства",
+
+    "screen.architectsdream.blueprint_viewer.block_type.block_tags_list.name" : "Словарь типов",
+    "screen.architectsdream.blueprint_viewer.block_type.block_properties_list.name" : "Свойства блока",
 
     "_" : "========================= JEI ==============================",
 

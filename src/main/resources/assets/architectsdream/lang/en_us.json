@@ -81,7 +81,18 @@
     "screen.architectsdream.blueprint_viewer.blueprint_rarity.name" : "Rarity",
     "screen.architectsdream.blueprint_viewer.blueprint_engine_type.name" : "Type",
 
+    "screen.architectsdream.blueprint_viewer.jei_item_tooltip" : "Click to see the recipe",
+
+    "_": " _________ Engine Item Maker __________",
+
     "screen.architectsdream.blueprint_viewer.engine_type_do.engine_item_maker.name" : "Create Items",
+
+    "_": " _________ Type Block __________",
+
+    "screen.architectsdream.blueprint_viewer.block_type.has_tags.name" : "can be replaced",
+    "screen.architectsdream.blueprint_viewer.block_type.has_properties.name" : "has properties",
+    "screen.architectsdream.blueprint_viewer.block_type.block_tags_list.name" : "Block Tags",
+    "screen.architectsdream.blueprint_viewer.block_type.block_properties_list.name" : "Block Properties",
 
     "screen.architectsdream.blueprint_viewer.engine_type_do.default.name" : "None",
 

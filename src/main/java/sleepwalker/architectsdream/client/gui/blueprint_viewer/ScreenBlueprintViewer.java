@@ -95,6 +95,11 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
    }
 
    @Nonnull
+   public static String screenI18n(String tx1){
+      return I18n.get(String.format("screen.%s.%s.%s", ArchitectsDream.MODID, R.ScreenName.SCREEN_BLUEPRINT_VIEWER, tx1));
+   }
+
+   @Nonnull
    public static String screenI18n(String tx1, String tx2){
       return I18n.get(String.format("screen.%s.%s.%s.%s", ArchitectsDream.MODID, R.ScreenName.SCREEN_BLUEPRINT_VIEWER, tx1, tx2));
    }
@@ -321,6 +326,8 @@ public class ScreenBlueprintViewer extends ContainerScreen<ContainerBlueprintVie
 
       infoPanel.render(matrixStack, mouseX, mouseY, partialTick);
       structureViewer.render(matrixStack, mouseX, mouseY, partialTick);
+
+      infoPanel.renderTooltips(matrixStack, mouseX, mouseY, partialTick);
    }
 
    @Override

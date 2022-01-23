@@ -5,6 +5,7 @@ import net.minecraft.util.ResourceLocation;
 public final class R {
     private R(){ }
     public static final String
+
         FOLDER_DATA_NAME = "blueprints",
 
         EXSEPTION_ITEM_NOTEXIST = "The item with the name \"%s\" does not exist",
@@ -113,8 +114,8 @@ public final class R {
             FILE_FORMAT = "temp_file_format",
 
             POINTS_DATA = "temp_points",
-            SWITCH_POINT = "switch_point",
 
+            FIRST_LOAD = "first_load",
             CURRENT_SCREEN = "current_screen",
             SCREENS_DATA = "screens_data",
             SCREEN_NAME = "name"

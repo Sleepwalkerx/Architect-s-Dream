@@ -189,6 +189,10 @@ public class ScrollRect extends BaseGuiElement implements INestedGuiEventHandler
         scrollBar.render(matrixStack, mouseX, mouseY, tick);
     }
 
+    public void renderTooltips(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float tick){
+        elements.forEach(t -> t.renderTooltips(matrixStack, mouseX, mouseY, tick));
+    }
+
     public List<IScrollElement> getElements() {
         return elements;
     }

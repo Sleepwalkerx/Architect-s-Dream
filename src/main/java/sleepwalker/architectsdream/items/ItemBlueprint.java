@@ -17,9 +17,12 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.common.thread.SidedThreadGroups;
 import net.minecraftforge.fml.network.NetworkHooks;
 import sleepwalker.architectsdream.ArchitectsDream;
+import sleepwalker.architectsdream.R;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.ContainerBlueprintViewer;
+import sleepwalker.architectsdream.resources.BlueprintManager;
 import sleepwalker.architectsdream.structure.Blueprint;
 import sleepwalker.architectsdream.structure.Blueprint.Rarity;
 import sleepwalker.architectsdream.structure.Blueprint.Result;
@@ -76,6 +79,50 @@ public class ItemBlueprint extends Item {
                 BlueprintUtils.getItemStackClientProperties(stack).getCondition().translationKey,
             name
         );
+    }
+
+    @Nonnull
+    @Override
+    public net.minecraft.item.Rarity getRarity(@Nonnull ItemStack pStack) {
+
+        Rarity myRarity;
+
+        if(Thread.currentThread().getThreadGroup() != SidedThreadGroups.SERVER) {
+
+            myRarity = BlueprintUtils.getBlueprintRarity(pStack);
+        }
+        else {
+
+            Blueprint blueprint = BlueprintManager.getBlueprint(new ResourceLocation(pStack.getOrCreateTag().getString(R.Blueprint.BLUEPRINT_NAME)));
+
+            if(blueprint != null){
+
+                myRarity = blueprint.getStructure().getRarity();
+            }
+            else {
+
+                myRarity = Rarity.SIMPLE;
+            }
+        }
+
+        switch (myRarity){
+
+            case NONE:
+            case SIMPLE:
+
+                return net.minecraft.item.Rarity.COMMON;
+
+            case RARE:
+
+                return net.minecraft.item.Rarity.RARE;
+
+            case LEGENDARY:
+            case WORLD_WONDER:
+
+                return net.minecraft.item.Rarity.EPIC;
+        }
+
+        return net.minecraft.item.Rarity.COMMON;
     }
 
     @Override

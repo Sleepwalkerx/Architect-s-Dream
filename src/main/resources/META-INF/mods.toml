@@ -1,8 +1,8 @@
 modLoader="javafml"
 loaderVersion="[34,)"
-license="MIT"
+license="Custom"
 issueTrackerURL=""
-logoFile=""
+version="0.2.3-beta"
 credits="All Our Gods Have Abandoned Us"
 authors="Sleepwalker" 
 

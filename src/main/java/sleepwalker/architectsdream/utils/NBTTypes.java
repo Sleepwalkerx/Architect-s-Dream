@@ -9,6 +9,7 @@ public final class NBTTypes {
         SHORT = 2,
         LIST = 9,
         OBJECT = 10,
-        STRING = 8
+        STRING = 8,
+        BOOLEAN = BYTE
     ;
 }

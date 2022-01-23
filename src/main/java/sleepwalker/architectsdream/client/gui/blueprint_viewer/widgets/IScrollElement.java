@@ -5,6 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import sleepwalker.architectsdream.client.gui.blueprint_viewer.infopanel.IInfoElement;
 
+import javax.annotation.Nonnull;
+
 public interface IScrollElement extends IInfoElement {
 
     default void renderCover(boolean active, MatrixStack pMatrixStack){
@@ -20,6 +22,8 @@ public interface IScrollElement extends IInfoElement {
             AbstractGui.blit(pMatrixStack, getPosX(), getPosY() + getHeight() - 3, 0, 78, 82, 3, 256, 256);
         }
     }
+
+    default void renderTooltips(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float tick){}
 
     void setScrollRectY(int value);
 

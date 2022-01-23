@@ -30,6 +30,7 @@ import sleepwalker.architectsdream.client.gui.blueprint_creator.screens.MainSett
 import sleepwalker.architectsdream.client.gui.blueprint_creator.screens.StructureViewerScreen;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.utils.FileStructureCreator;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.widget.ScrollListScreens;
+import sleepwalker.architectsdream.config.Config;
 import sleepwalker.architectsdream.network.PacketHandler;
 import sleepwalker.architectsdream.network.PacketTempBlueprintToServer;
 import sleepwalker.architectsdream.serialize.TemplateFileStructure;
@@ -96,6 +97,21 @@ public class ScreenBlueprintCreator extends ContainerScreen<ContainerBlueprintCr
                     .filter(screen -> screen.getRegistrationId().equals(id))
                     .findFirst()
             .ifPresent(screen -> current = screen);
+        }
+
+        if(!mainData.contains(R.BlueprintCreator.FIRST_LOAD, NBTTypes.BOOLEAN) || mainData.getBoolean(R.BlueprintCreator.FIRST_LOAD)){
+
+            Config.CLIENT.startComponentsKit.get().forEach(componentName -> {
+
+                ResourceLocation location = new ResourceLocation(componentName);
+
+                Pair<DataType, CustomScreenCreator> pair = REGISTRY.get(location);
+
+                if(pair != null && cacheScreens.stream().noneMatch(screen -> screen.getRegistrationId().equals(location))){
+
+                    cacheScreens.add(pair.getValue().of(this, location, pair.getKey()));
+                }
+            });
         }
     }
 
@@ -400,6 +416,7 @@ public class ScreenBlueprintCreator extends ContainerScreen<ContainerBlueprintCr
         CompoundNBT compoundNBT = new CompoundNBT();
 
         compoundNBT.putString(R.BlueprintCreator.CURRENT_SCREEN, current.getRegistrationId().toString());
+        compoundNBT.putBoolean(R.BlueprintCreator.FIRST_LOAD, false);
         compoundNBT.putString(R.BlueprintCreator.NAME, mainSettingScreen.getName());
 
         if(!screensData.isEmpty()) {

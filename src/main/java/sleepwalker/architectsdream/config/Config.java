@@ -10,6 +10,11 @@ import sleepwalker.architectsdream.ArchitectsDream;
 import sleepwalker.architectsdream.client.gui.blueprint_creator.ScreenBlueprintCreator.EnumFileFormat;
 import sleepwalker.architectsdream.structure.RenderProperty;
 
+import javax.annotation.Nonnull;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public final class Config {
     private Config() { throw new IllegalStateException("Utility class"); }
 
@@ -31,7 +36,9 @@ public final class Config {
         public final BooleanValue lockPitch;
         public final ConfigValue<Float> x, y, pitch, yaw, zoom;
 
-        public ClientConfig(ForgeConfigSpec.Builder builder){
+        public final ConfigValue<List<String>> startComponentsKit;
+
+        public ClientConfig(@Nonnull ForgeConfigSpec.Builder builder){
             author = builder
                 .comment("Default author")
                 .define("author", "Anonymous", obj -> {
@@ -67,6 +74,13 @@ public final class Config {
             pitch = builder.define("pitch", RenderProperty.DEFAULT.getPitch());
             yaw = builder.define("yaw", RenderProperty.DEFAULT.getYaw());
             zoom = builder.define("zoom", RenderProperty.DEFAULT.getZoom());
+
+            startComponentsKit = builder
+                    .comment("The starter kit of components for BlueprintCreator. When you create a new drawing, they will be automatically added. Format: 'mod_id:component_id'")
+                    .comment("You can use: [architectsdream:block_type], [architectsdream:engine_item_maker]")
+            .define("startComponentsKit", new ArrayList<>());
+
+
         }
     }
 }

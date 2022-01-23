@@ -109,33 +109,23 @@ public class WorldRenderer {
         List<PointTemplateData> newData = FileStructureCreator.getPointTemplateData(btemplate.getTag());
 
         if(!newData.equals(points)){
-            cachePoints = buildVoxelShapes(newData, btemplate.getTag().getBoolean(R.BlueprintCreator.SWITCH_POINT));
+            cachePoints = buildVoxelShapes(newData);
             points = newData;
         }
     }
 
     @Nonnull
-    private List<VisualCube> buildVoxelShapes(@Nonnull List<PointTemplateData> listData, boolean switchPoint){
+    private List<VisualCube> buildVoxelShapes(@Nonnull List<PointTemplateData> listData){
 
         List<VisualCube> list = Lists.newArrayList();
 
         for(PointTemplateData pointData : listData){
 
-            if(!switchPoint){
-                list.add(new VisualCube(VoxelShapes.block(), pointData.getColorR(), pointData.getColorG(), pointData.getColorB(), pointData.getMax()));
-            }
-            else {
-                list.add(new VisualCube(VoxelShapes.block(), 0.87f, 0.0f, 0.32f, pointData.getMax()));
-            }
+            list.add(new VisualCube(VoxelShapes.block(), pointData.getColorR(), pointData.getColorG(), pointData.getColorB(), pointData.getMax()));
 
             if(pointData.getMin() != BlockPos.ZERO){
 
-                if(switchPoint){
-                    list.add(new VisualCube(VoxelShapes.block(), pointData.getColorR(), pointData.getColorG(), pointData.getColorB(), pointData.getMin()));
-                }
-                else {
-                    list.add(new VisualCube(VoxelShapes.block(), 0.87f, 0.0f, 0.32f, pointData.getMin()));
-                }
+                list.add(new VisualCube(VoxelShapes.block(), pointData.getColorR(), pointData.getColorG(), pointData.getColorB(), pointData.getMin()));
 
                 list.add(new VisualCube(
                     VoxelShapes.create(new AxisAlignedBB(
