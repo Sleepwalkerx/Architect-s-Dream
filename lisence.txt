@@ -1,0 +1,37 @@
+Sleepwalker License
+
+What are you allowed to do
+Look at the code, get inspired, copy fragments of it to use in your own projects
+Fork this repository and change its code
+Send extraction requests to this repository
+Create addons for this project
+Use this project for modpacks.
+
+What is forbidden to you
+Declare that this project and its files are your property
+Monetize any of these projects. It is not allowed to monetize this project in any form.
+Distribute the project without the explicit permission of the author
+Use without a single indication of the author and owner of the project
+
+On the topic of resources:
+Always give credit to the original artists/creators
+Always ask permission before copying resources
+Addon mods are allowed to use and remake artistic and model resources for the sole purpose of being addons. When in doubt, it's better to ask.
+
+Contribution to this repository:
+The author of the original retains copyright to his combined code and resources
+The owner of this repository is granted the rights to use and modify the contributed code or resource. It cannot be revoked
+Any submitted code or resource must be licensed for this project with this license
+
+For any questions regarding this license, please contact me on:
+
+Gmail - sleepwalker3x@gmail.com
+
+VK - https://vk.com/idsleepwalkerxxx
+
+Telegram - @Sleepwalker3x
+
+This project is provided "as is", without warranties of any kind, including, but not limited to, warranties of merchantability, fitness for a particular purpose, or non-infringement.
+The authors or copyright holders are not responsible for any claims, losses or other liability, whether as a result of actions under the contract, tort or other actions arising from or in connection with this project, its use or related projects.
+
+I reserve the right to revoke the permissions of this license from people who, in my opinion, behave inappropriately.
