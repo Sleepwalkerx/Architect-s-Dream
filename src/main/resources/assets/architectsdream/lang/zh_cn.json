@@ -1,0 +1,133 @@
+{
+
+    "_" : "======================== Base ==========================",
+
+    "architectsdream.blueprint.rarity.simple": "简单",
+    "architectsdream.blueprint.rarity.rare": "精致",
+    "architectsdream.blueprint.rarity.legendary" : "奇观",
+    "architectsdream.blueprint.rarity.world_wonder" : "世界遗产",
+    "architectsdream.blueprint.rarity.none" : "未选择",
+
+    "architectsdream.blueprint.condition.whole" : "蓝图 %s",
+    "architectsdream.blueprint.condition.defective" : "错误蓝图 %s",
+    "architectsdream.blueprint.condition.none" : "空的蓝图",
+
+    "architectsdream.blueprint.data_type.engine.name": "奖励",
+    "architectsdream.blueprint.data_type.palette_type.name": "材料",
+
+    "architectsdream.blueprint.properties.num_of_use" : "使用次数: %d",
+
+    "_" : "========================== Analysis ===========================",
+
+    "architectsdream.structure.analysis.correctly_build" : "建筑建造成功！",
+    "architectsdream.structure.analysis.incorrectly_build" : "无法识别建筑",
+    "architectsdream.structure.analysis.empty_structure" : "蓝图是空的",
+    "architectsdream.structure.analysis.error_engine_formed" : "奖励识别错误",
+
+    "_" : "============================= Blueprint Creator ===============================",
+
+    "architectsdream.blueprint_creator.mode.constant" : "常规",
+    "architectsdream.blueprint_creator.mode.anyone" : "任何人",
+    "architectsdream.blueprint_creator.mode.permutation_const" : "Permutation",
+
+    "_": "________ General _________",
+
+    "screen.architectsdream.blueprint_creator.general.button_file_create": "创建文件",
+
+    "_": "________ Item Maker _________",
+
+    "screen.architectsdream.blueprint_creator.engine_item_maker.name": "建造奖励",
+
+    "_": "________ Engine Base _________",
+
+    "screen.architectsdream.blueprint_creator.engine_base.name": "基础引擎",
+
+    "_": "________ Block Type _________",
+
+    "screen.architectsdream.blueprint_creator.block_type.name": "材料列表",
+    "screen.architectsdream.blueprint_creator.block_type.consider_air.name": "计入空气方块",
+
+    "_": "_________ Render Properties ________",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.name": "建筑预览",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.title_pitch_lock": "水平锁定",
+    "screen.architectsdream.blueprint_creator.rend_prop.title_all_lock": "垂直锁定",
+
+    "screen.architectsdream.blueprint_creator.rend_prop.reset.name": "恢复默认",
+
+    "_": "________ Main Setting _________",
+
+    "screen.architectsdream.blueprint_creator.main_setting.name": "基础设置",
+
+    "screen.architectsdream.blueprint_creator.main_setting.title_reg_id": "注册名",
+    "screen.architectsdream.blueprint_creator.main_setting.title_name": "建筑名",
+    "screen.architectsdream.blueprint_creator.main_setting.title_rarity": "等级",
+    "screen.architectsdream.blueprint_creator.main_setting.title_author": "作者",
+    "screen.architectsdream.blueprint_creator.main_setting.title_mode": "框选模式",
+    "screen.architectsdream.blueprint_creator.main_setting.title_file_format": "存储格式",
+    "screen.architectsdream.blueprint_creator.main_setting.title_num_of_use": "可使用次数",
+
+    "screen.architectsdream.blueprint_creator.main_setting.validator_mode.const": "常规",
+
+    "_" : "==================== Blueprint Viewer =====================",
+
+    "screen.architectsdream.blueprint_viewer.scroll_ingredients.name" : "材料",
+    "screen.architectsdream.blueprint_viewer.scroll_object_information.name" : "材料信息",
+    "screen.architectsdream.blueprint_viewer.scroll_result_creation.name" : "建造奖励",
+    "screen.architectsdream.blueprint_viewer.window_structure_viewer.name" : "建筑预览",
+
+    "screen.architectsdream.blueprint_viewer.blueprint_author.name" : "作者",
+    "screen.architectsdream.blueprint_viewer.blueprint_rarity.name" : "等级",
+    "screen.architectsdream.blueprint_viewer.blueprint_engine_type.name" : "类型",
+
+    "screen.architectsdream.blueprint_viewer.jei_item_tooltip" : "单击查看合成表",
+
+    "_": " _________ Engine Item Maker __________",
+
+    "screen.architectsdream.blueprint_viewer.engine_type_do.engine_item_maker.name" : "奖励物品",
+
+    "_": " _________ Type Block __________",
+
+    "screen.architectsdream.blueprint_viewer.block_type.has_tags.name" : "可替换的",
+    "screen.architectsdream.blueprint_viewer.block_type.has_properties.name" : "具有属性",
+    "screen.architectsdream.blueprint_viewer.block_type.block_tags_list.name" : "方块标签",
+    "screen.architectsdream.blueprint_viewer.block_type.block_properties_list.name" : "方块属性",
+
+    "screen.architectsdream.blueprint_viewer.engine_type_do.default.name" : "无",
+
+    "_" : "========================= JEI ==============================",
+
+    "gui.jei.blueprint_info_1": "这本蓝图无法合成。",
+    "gui.jei.blueprint_info_2": "你可以从很多途径得到它，通常这取决于奖励的类别。",
+    "gui.jei.blueprint_info_3": "例如，与村民进行交易，掠夺战利品箱，等等。",
+
+    "gui.jei.category.architectsdream.item_maker": "Blueprint Create Item",
+
+    "_": "========================= Development ==========================",
+
+    "architectsdream.structure.development.error_build": "建筑文件\"%s\"无法被创建。查看游戏日志以获取更多信息。",
+    "architectsdream.structure.development.success_build": "成功创建建筑文件\"%s\"！",
+
+    "_": "======================= ItemGroup =============================",
+
+    "itemGroup.blueprints": "蓝图",
+    "itemGroup.architectsdream": "建筑师之梦",
+
+    "_": "======================== Items ================================",
+
+    "item.architectsdream.dark_dust": "黑尘",
+    "item.architectsdream.blueprint_creator": "蓝图创建器",
+
+    "_": "====================== Blueprints ==============================",
+
+    "blueprint.architectsdream.big_bookshelf.name": "大的${block.minecraft.bookshelf}",
+    "blueprint.architectsdream.totem_of_undying.name": "${item.minecraft.totem_of_undying}",
+    "blueprint.architectsdream.dark_dust.name": "${item.architectsdream.dark_dust}",
+    "blueprint.architectsdream.netherite_ingot.name": "${item.minecraft.netherite_ingot}",
+    "blueprint.architectsdream.ancient_debris.name": "${block.minecraft.ancient_debris}",
+    "blueprint.architectsdream.skeleton_skull.name": "${block.minecraft.skeleton_skull}",
+    "blueprint.architectsdream.wither_ritual.name": "凋零祭坛",
+    "blueprint.architectsdream.player_ritual.name": "玩家祭坛",
+    "blueprint.architectsdream.test.name": "测试"
+}
